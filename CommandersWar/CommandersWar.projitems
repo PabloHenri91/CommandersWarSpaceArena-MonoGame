@@ -12,10 +12,16 @@
     <Folder Include="$(MSBuildThisFileDirectory)Scenes\" />
     <Folder Include="$(MSBuildThisFileDirectory)Realm\" />
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Game\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Scenes\GameScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Realm\PlayerData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\BattleScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\CreditsScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\HangarScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\LoadScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\MainMenuScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameColors.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
