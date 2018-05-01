@@ -13,12 +13,40 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin SpriteFont/SpriteFont.spritefont
+#begin SpriteFont/kenpixel16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Color
-/build:SpriteFont/SpriteFont.spritefont
+/build:SpriteFont/kenpixel16.spritefont
+
+#begin SpriteFont/kenpixel24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:SpriteFont/kenpixel24.spritefont
+
+#begin SpriteFont/kenpixel32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:SpriteFont/kenpixel32.spritefont
+
+#begin SpriteFont/kenpixel8.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:SpriteFont/kenpixel8.spritefont
+
+#begin SpriteFont/SpriteFont32.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:SpriteFont/SpriteFont32.spritefont
 
 #begin Texture2D/About.png
 /importer:TextureImporter

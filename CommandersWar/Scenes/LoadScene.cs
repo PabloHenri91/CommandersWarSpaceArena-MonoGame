@@ -16,7 +16,31 @@ namespace Hydra.Scenes
     {
         public GameScene()
         {
+            backgroundColor = GameColors.backgroundColor;
+            defaultSize = new Vector2(375, 667);
 
+            Label.defaultFontName = FontName.kenPixel;
+            Label.defaultColor = GameColors.fontWhite;
+            Label.defaultFontSize = FontSize.size16;
         }
-    }
+
+		internal override void load()
+		{
+            base.load();
+
+            gameWorld.load();
+
+            Control title = new Control("title", 9, 281, HorizontalAlignment.center, VerticalAlignment.center);
+            title.blendState = BlendState.Additive;
+            addChild(title);
+
+            addChild(new Label("TOUCH TO START", 187, 620, HorizontalAlignment.center, VerticalAlignment.center));
+		}
+
+		internal override void touchUp(Touch touch)
+		{
+            base.touchUp(touch);
+            presentScene(new MainMenuScene());
+		}
+	}
 }
