@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>project.MonoGame.CommandersWarSpaceArena.macOS</string>
+	<string>project.MonoGame.CommandersWar.macOS</string>
 	<key>CFBundleName</key>
-	<string>CommandersWarSpaceArena</string>
+	<string>CommandersWar</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>

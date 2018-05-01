@@ -9,7 +9,7 @@ using Foundation;
 using Hydra;
 #endregion
 
-namespace CommandersWarSpaceArena.macOS
+namespace CommandersWar.macOS
 {
     class Program : NSApplicationDelegate
 	{

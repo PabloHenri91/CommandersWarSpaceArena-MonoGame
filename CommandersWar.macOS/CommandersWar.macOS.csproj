@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\CommandersWarSpaceArena\CommandersWarSpaceArena.projitems" Label="Shared" Condition="Exists('..\CommandersWarSpaceArena\CommandersWarSpaceArena.projitems')" />
+  <Import Project="..\CommandersWar\CommandersWar.projitems" Label="Shared" Condition="Exists('..\CommandersWar\CommandersWar.projitems')" />
   <Import Project="..\..\hydra\Hydra.projitems" Label="Shared" Condition="Exists('..\..\hydra\Hydra.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
@@ -9,8 +9,8 @@
     <ProjectGuid>{4282A00D-9B52-4222-B589-5A9DCBE030C3}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CommandersWarSpaceArena.macOS</RootNamespace>
-    <AssemblyName>CommandersWarSpaceArena</AssemblyName>
+    <RootNamespace>CommandersWar.macOS</RootNamespace>
+    <AssemblyName>CommandersWar</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>

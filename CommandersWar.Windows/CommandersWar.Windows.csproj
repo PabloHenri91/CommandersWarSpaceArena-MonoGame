@@ -9,8 +9,8 @@
     <ProjectGuid>{D75CE20F-EF55-49C1-BF1D-383F736E692B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommandersWarSpaceArena.Windows</RootNamespace>
-    <AssemblyName>CommandersWarSpaceArena.Windows</AssemblyName>
+    <RootNamespace>CommandersWar.Windows</RootNamespace>
+    <AssemblyName>CommandersWar.Windows</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -88,7 +88,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\..\hydra\Hydra.projitems" Label="Shared" />
-  <Import Project="..\CommandersWarSpaceArena\CommandersWarSpaceArena.projitems" Label="Shared" />
+  <Import Project="..\CommandersWar\CommandersWar.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="..\packages\Fody.2.4.6\build\Fody.targets" Condition="Exists('..\packages\Fody.2.4.6\build\Fody.targets')" />

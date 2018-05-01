@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("CommandersWarSpaceArena.Android.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("CommandersWar.Android.Resource", IsApplication=true)]
 
-namespace CommandersWarSpaceArena.Android
+namespace CommandersWar.Android
 {
 	
 	

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\CommandersWarSpaceArena\CommandersWarSpaceArena.projitems" Label="Shared" Condition="Exists('..\CommandersWarSpaceArena\CommandersWarSpaceArena.projitems')" />
+  <Import Project="..\CommandersWar\CommandersWar.projitems" Label="Shared" Condition="Exists('..\CommandersWar\CommandersWar.projitems')" />
   <Import Project="..\..\hydra\Hydra.projitems" Label="Shared" Condition="Exists('..\..\hydra\Hydra.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
@@ -9,8 +9,8 @@
     <ProjectGuid>{7C0A04D2-49B5-4B7C-BBE4-4A31D2333A2D}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>CommandersWarSpaceArena.iOS</RootNamespace>
-    <AssemblyName>CommandersWarSpaceArena.iOS</AssemblyName>
+    <RootNamespace>CommandersWar.iOS</RootNamespace>
+    <AssemblyName>CommandersWar.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <MonoGamePlatform>iOS</MonoGamePlatform>
   </PropertyGroup>
@@ -131,33 +131,33 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\Contents.json" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ios-marketing.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-appicon%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-appicon%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-notification%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-notification%403x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldAppicon%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldAppicon%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldSpotlight%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldSpotlight%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-pro-appicon%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-settings%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-settings%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-spotlight%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\ipad-spotlight%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-appicon%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-appicon%403x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-notification%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-notification%403x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-oldAppicon%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-oldAppicon%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-settings%401x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-settings%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-settings%403x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-spotlight%402x.png" />
-    <ImageAsset Include="Resources\CommandersWarSpaceArena.iOS\Images.xcassets\AppIcon.appiconset\iphone-spotlight%403x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\Contents.json" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ios-marketing.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-appicon%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-appicon%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-notification%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-notification%403x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldAppicon%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldAppicon%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldSpotlight%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-oldSpotlight%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-pro-appicon%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-settings%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-settings%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-spotlight%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\ipad-spotlight%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-appicon%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-appicon%403x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-notification%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-notification%403x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-oldAppicon%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-oldAppicon%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-settings%401x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-settings%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-settings%403x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-spotlight%402x.png" />
+    <ImageAsset Include="Resources\CommandersWar.iOS\Images.xcassets\AppIcon.appiconset\iphone-spotlight%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
