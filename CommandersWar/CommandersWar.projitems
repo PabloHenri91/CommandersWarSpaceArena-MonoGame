@@ -24,6 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameColors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameWorld.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameFonts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\MothershipSlots.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\MothershipSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
