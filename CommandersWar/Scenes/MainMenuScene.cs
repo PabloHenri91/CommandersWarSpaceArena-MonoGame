@@ -16,14 +16,25 @@ namespace Hydra.Scenes
 {
     public class MainMenuScene : SKScene
     {
+        enum State
+        {
+            mainMenu,
+            battle,
+            hangar,
+            chooseMission
+        }
+
+        State state = State.mainMenu;
+        State nextState = State.mainMenu;
+
 		internal override void load()
 		{
             base.load();
 
+            PlayerData playerData = MemoryCard.current.playerData;
+
             MothershipSlots mothershipSlots = new MothershipSlots(0, 289, HorizontalAlignment.center, VerticalAlignment.center);
-
-
-
+            mothershipSlots.load(playerData.mothership.slots);
             addChild(mothershipSlots);
 
             var buttonPlay = new Button("button_233x55", 71, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
@@ -31,9 +42,31 @@ namespace Hydra.Scenes
             buttonPlay.set(GameColors.controlRed, BlendState.Additive);
             addChild(buttonPlay);
 
-            buttonPlay.touchUpEvent = (sender, e) => {
-                
+            buttonPlay.touchUpAction = () => {
+                nextState = State.battle;
             };
 		}
-	}
+
+        internal override void update()
+        {
+            base.update();
+
+            if (state == nextState)
+            {
+                switch (state)
+                {
+                }
+            }
+            else
+            {
+                state = nextState;
+                switch (state)
+                {
+                    case State.battle:
+                        presentScene(new BattleScene());
+                        break;
+                }
+            }
+        }
+    }
 }

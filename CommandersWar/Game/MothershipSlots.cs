@@ -32,5 +32,13 @@ namespace CommandersWar.Game
                 addChild(mothershipSlot);
             }
         }
+
+        internal void load(IQueryable<MothershipSlotData> slots)
+        {
+            foreach (MothershipSlotData i in slots)
+            {
+
+            }
+        }
     }
 }
