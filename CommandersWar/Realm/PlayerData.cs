@@ -27,7 +27,7 @@ namespace Hydra
 
         public PlayerData()
         {
-            mothership = ???
+            //mothership = ???
         }
     }
 
