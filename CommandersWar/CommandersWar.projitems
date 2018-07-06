@@ -26,6 +26,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameFonts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\MothershipSlots.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\MothershipSlot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Element.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Spaceship.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\GameMath.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
