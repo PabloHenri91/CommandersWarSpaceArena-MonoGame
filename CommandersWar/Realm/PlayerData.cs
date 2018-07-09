@@ -34,6 +34,11 @@ namespace Hydra
 
         [Backlink(nameof(SpaceshipData.parentPlayer))]
         public IQueryable<SpaceshipData> spaceships { get; }
+
+        internal void addToSpaceships(SpaceshipData spaceshipData)
+        {
+            spaceshipData.parentPlayer = this;
+        }
     }
 
     public class MothershipData : RealmObject
@@ -43,7 +48,7 @@ namespace Hydra
 
         internal void addToSlots(MothershipSlotData mothershipSlotData)
         {
-            slots.Append(mothershipSlotData);
+            mothershipSlotData.parentMothership = this;
         }
     }
 
@@ -72,7 +77,8 @@ namespace Hydra
         public PlayerData parentPlayer { get; set; }
     }
 
-    public static class MemoryCardExtension {
+    public static class MemoryCardExtension
+    {
 
         public static PlayerData newPlayerData(this MemoryCard memoryCard)
         {
@@ -93,10 +99,10 @@ namespace Hydra
             MothershipData mothershipData = memoryCard.newMothershipData();
             playerData.mothership = mothershipData;
 
-            var elements = new Element.Type[] {
-                Element.Type.water, 
-                Element.Type.fire, 
-                Element.Type.ice, 
+            Element.Type[] elements = {
+                Element.Type.water,
+                Element.Type.fire,
+                Element.Type.ice,
                 Element.Type.wind
             };
 

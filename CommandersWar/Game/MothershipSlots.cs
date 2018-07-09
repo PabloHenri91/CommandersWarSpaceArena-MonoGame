@@ -35,9 +35,9 @@ namespace CommandersWar.Game
 
         internal void load(IQueryable<MothershipSlotData> slots)
         {
-            foreach (MothershipSlotData i in slots)
+            foreach (MothershipSlotData mothershipSlotData in slots)
             {
-
+                mothershipSlots[mothershipSlotData.index].load(mothershipSlotData.spaceship);
             }
         }
     }

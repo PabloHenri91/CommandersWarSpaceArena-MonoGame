@@ -16,11 +16,21 @@ namespace CommandersWar.Game
 {
     public class MothershipSlot : Control
     {
-        public MothershipSlot(int x, int y, 
+        public MothershipSlot(int x, int y,
                               HorizontalAlignment horizontalAlignment = HorizontalAlignment.left,
-                              VerticalAlignment verticalAlignment = VerticalAlignment.top) 
+                              VerticalAlignment verticalAlignment = VerticalAlignment.top)
             : base("box_89x89", x, y, horizontalAlignment, verticalAlignment)
         {
+        }
+
+        internal void load(SpaceshipData spaceshipData)
+        {
+            load(new Spaceship(spaceshipData));
+        }
+
+        internal void load(Spaceship spaceship)
+        {
+            addChild(spaceship);
         }
     }
 }

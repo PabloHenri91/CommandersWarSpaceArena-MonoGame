@@ -10,11 +10,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using Hydra;
+
 namespace CommandersWar.Game
 {
-    public class Spaceship
+    public class Spaceship : SKNode
     {
-        public Spaceship()
+        public Spaceship(SpaceshipData spaceshipData)
         {
         }
 
