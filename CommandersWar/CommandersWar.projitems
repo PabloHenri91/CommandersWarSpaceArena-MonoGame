@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Element.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Spaceship.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameMath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Mothership.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

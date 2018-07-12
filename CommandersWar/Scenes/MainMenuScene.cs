@@ -16,14 +16,6 @@ namespace Hydra.Scenes
 {
     public class MainMenuScene : SKScene
     {
-        enum State
-        {
-            mainMenu,
-            battle,
-            hangar,
-            chooseMission
-        }
-
         State state = State.mainMenu;
         State nextState = State.mainMenu;
 
@@ -61,6 +53,14 @@ namespace Hydra.Scenes
                         break;
                 }
             }
+        }
+
+        enum State
+        {
+            mainMenu,
+            battle,
+            hangar,
+            chooseMission
         }
     }
 }

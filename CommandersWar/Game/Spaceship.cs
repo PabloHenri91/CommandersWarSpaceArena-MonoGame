@@ -14,21 +14,34 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class Spaceship : SKNode
+    public class Spaceship : SKSpriteNode
     {
-        public Spaceship(SpaceshipData spaceshipData)
+        SpaceshipData spaceshipData;
+
+        Rarity rarity;
+
+        public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
         {
+            this.spaceshipData = spaceshipData;
+            rarity = (Rarity)spaceshipData.rarity;
+
+            Color color = new Color(spaceshipData.colorRed, spaceshipData.colorGreen, spaceshipData.colorBlue);
+
+            load(spaceshipData.level, 
+                 spaceshipData.baseDamage,
+                 spaceshipData.baseLife, 
+                 spaceshipData.baseSpeed, 
+                 spaceshipData.baseRange, 
+                 spaceshipData.skin,
+                 loadPhysics, 
+                 team);
         }
 
-        public enum rarity
+        void load(int level, int baseDamage, int baseLife, int baseSpeed, int baseRange, int skinIndex, bool loadPhysics, Mothership.Team team)
         {
-            common,
-            uncommon,
-            rare,
-            heroic,
-            epic,
-            legendary,
-            supreme
+            this.level = level;
+            battleStartLevel = level;
+            this.skinIndex = skinIndex;
         }
 
         internal static string[] skins = {
@@ -50,10 +63,24 @@ namespace CommandersWar.Game
             "spaceship15",
             "spaceship16"
         };
+        private int level;
+        private int battleStartLevel;
+        private int skinIndex;
 
         internal static Color randomColor()
         {
-            return Color.Black;
+            return Color.White;
+        }
+
+        public enum Rarity
+        {
+            common,
+            uncommon,
+            rare,
+            heroic,
+            epic,
+            legendary,
+            supreme
         }
     }
 }

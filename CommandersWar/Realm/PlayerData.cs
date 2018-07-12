@@ -111,7 +111,7 @@ namespace Hydra
                 MothershipSlotData mothershipSlotData = memoryCard.newMothershipSlotData();
                 mothershipSlotData.index = i;
 
-                SpaceshipData spaceshipData = memoryCard.newSpaceshipData(Spaceship.rarity.common, Element.types[elements[i]].color);
+                SpaceshipData spaceshipData = memoryCard.newSpaceshipData(Spaceship.Rarity.common, Element.types[elements[i]].color);
                 mothershipSlotData.spaceship = spaceshipData;
                 mothershipData.addToSlots(mothershipSlotData);
             }
@@ -131,7 +131,7 @@ namespace Hydra
             return mothershipSlotData;
         }
 
-        internal static SpaceshipData newSpaceshipData(this MemoryCard memoryCard, Spaceship.rarity rarity, Color? color = null)
+        internal static SpaceshipData newSpaceshipData(this MemoryCard memoryCard, Spaceship.Rarity rarity, Color? color = null)
         {
             SpaceshipData spaceshipData = memoryCard.insert<SpaceshipData>();
 
