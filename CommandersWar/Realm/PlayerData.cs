@@ -99,7 +99,7 @@ namespace Hydra
             MothershipData mothershipData = memoryCard.newMothershipData();
             playerData.mothership = mothershipData;
 
-            Element.Type[] elements = {
+            Element.Type[] elementTypes = {
                 Element.Type.water,
                 Element.Type.fire,
                 Element.Type.ice,
@@ -111,7 +111,8 @@ namespace Hydra
                 MothershipSlotData mothershipSlotData = memoryCard.newMothershipSlotData();
                 mothershipSlotData.index = i;
 
-                SpaceshipData spaceshipData = memoryCard.newSpaceshipData(Spaceship.Rarity.common, Element.types[elements[i]].color);
+                SpaceshipData spaceshipData = memoryCard.newSpaceshipData(Spaceship.Rarity.common,
+                                                                          Spaceship.randomColor(elementTypes[i]));
                 mothershipSlotData.spaceship = spaceshipData;
                 mothershipData.addToSlots(mothershipSlotData);
             }
@@ -140,9 +141,9 @@ namespace Hydra
                 color = Spaceship.randomColor();
             }
 
-            spaceshipData.colorRed = color.Value.R;
-            spaceshipData.colorGreen = color.Value.G;
-            spaceshipData.colorBlue = color.Value.B;
+            spaceshipData.colorRed = color.Value.R / 255.0f;
+            spaceshipData.colorGreen = color.Value.G / 255.0f;
+            spaceshipData.colorBlue = color.Value.B / 255.0f;
             spaceshipData.baseDamage = GameMath.randomBaseDamage(rarity);
             spaceshipData.level = 1;
             spaceshipData.baseLife = GameMath.randomBaseLife(rarity);

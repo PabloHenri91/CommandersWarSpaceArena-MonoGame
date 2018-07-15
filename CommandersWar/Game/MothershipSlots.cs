@@ -33,7 +33,7 @@ namespace CommandersWar.Game
             }
         }
 
-        internal void load(IQueryable<MothershipSlotData> slots)
+        internal void load(IEnumerable<MothershipSlotData> slots)
         {
             foreach (MothershipSlotData mothershipSlotData in slots)
             {

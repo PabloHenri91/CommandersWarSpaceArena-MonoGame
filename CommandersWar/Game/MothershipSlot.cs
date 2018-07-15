@@ -30,6 +30,8 @@ namespace CommandersWar.Game
 
         internal void load(Spaceship spaceship)
         {
+            spaceship.position = new Vector2(size.X / 2, size.Y / 2);
+            spaceship.setScaleToFit(new Vector2(size.X - 16, size.Y - 16));
             addChild(spaceship);
         }
     }
