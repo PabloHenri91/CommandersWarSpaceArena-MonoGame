@@ -40,6 +40,7 @@ namespace Hydra.Scenes
 		internal override void touchUp(Touch touch)
 		{
             base.touchUp(touch);
+
             presentScene(new MainMenuScene());
 		}
 	}

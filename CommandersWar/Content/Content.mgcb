@@ -120,6 +120,18 @@
 /processorParam:TextureFormat=Color
 /build:Texture2D/box.png
 
+#begin Texture2D/box_233x610.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Texture2D/box_233x610.png
+
 #begin Texture2D/box_89x89.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -155,6 +167,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Texture2D/button_233x55.png
+
+#begin Texture2D/button_55x55.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Texture2D/button_55x55.png
 
 #begin Texture2D/Circuit.png
 /importer:TextureImporter

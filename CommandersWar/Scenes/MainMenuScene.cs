@@ -19,8 +19,14 @@ namespace Hydra.Scenes
         State state = State.mainMenu;
         State nextState = State.mainMenu;
 
-		internal override void load()
-		{
+        Button buttonPlay;
+        Button buttonShips;
+        Button buttonSettings;
+
+        BoxSettings boxSettings;
+
+        internal override void load()
+        {
             base.load();
 
             PlayerData playerData = MemoryCard.current.playerData;
@@ -29,27 +35,95 @@ namespace Hydra.Scenes
             mothershipSlots.load(playerData.mothership.slots);
             addChild(mothershipSlots);
 
-            var buttonPlay = new Button("button_233x55", 71, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
+            buttonPlay = new Button("button_233x55", 71, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
             buttonPlay.setIcon("Play");
             buttonPlay.set(GameColors.controlRed, BlendState.Additive);
             addChild(buttonPlay);
 
-            buttonPlay.touchUpAction = () => {
-                nextState = State.battle;
-            };
-		}
+            Button buttonBuy = new Button("button_55x55", 312, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
+            buttonBuy.setIcon("Add Shopping Cart");
+            buttonBuy.set(GameColors.controlYellow, BlendState.Additive);
+            addChild(buttonBuy);
+            buttonBuy.isHidden = true;
+
+            buttonShips = new Button("button_55x55", 8, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
+            buttonShips.setIcon("Rocket");
+            buttonShips.set(GameColors.controlBlue, BlendState.Additive);
+            addChild(buttonShips);
+
+            buttonSettings = new Button("button_55x55", 312, 95, HorizontalAlignment.right, VerticalAlignment.top);
+            buttonSettings.setIcon("Settings");
+            buttonSettings.set(GameColors.controlBlue, BlendState.Additive);
+            addChild(buttonSettings);
+        }
 
         internal override void update()
         {
             base.update();
 
-            if (state != nextState)
+            if (state == nextState)
+            {
+                switch (state)
+                {
+                    case State.mainMenu:
+                        break;
+                }
+            }
+            else
             {
                 state = nextState;
                 switch (state)
                 {
                     case State.battle:
                         presentScene(new BattleScene());
+                        break;
+                    case State.hangar:
+                        presentScene(new HangarScene());
+                        break;
+                    case State.settings:
+                        boxSettings = new BoxSettings();
+                        addChild(boxSettings);
+                        break;
+                }
+            }
+        }
+
+        internal override void touchUp(Touch touch)
+        {
+            base.touchUp(touch);
+
+            if (state == nextState)
+            {
+                switch (state)
+                {
+                    case State.mainMenu:
+                        if (buttonPlay.contains(touch.locationIn(buttonPlay.parent)))
+                        {
+                            nextState = State.battle;
+                            return;
+                        }
+
+                        if (buttonShips.contains(touch.locationIn(buttonShips.parent)))
+                        {
+                            nextState = State.hangar;
+                            return;
+                        }
+
+                        if (buttonSettings.contains(touch.locationIn(buttonSettings.parent)))
+                        {
+                            nextState = State.settings;
+                            return;
+                        }
+                        break;
+
+                    case State.settings:
+                        if (!boxSettings.contains(touch.locationIn(boxSettings.parent)))
+                        {
+                            boxSettings.removeFromParent();
+                            boxSettings = null;
+                            nextState = State.mainMenu;
+                            return;
+                        }
                         break;
                 }
             }
@@ -60,7 +134,8 @@ namespace Hydra.Scenes
             mainMenu,
             battle,
             hangar,
-            chooseMission
+            chooseMission,
+            settings
         }
     }
 }
