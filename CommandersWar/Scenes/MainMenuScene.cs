@@ -10,9 +10,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using CommandersWar.Game;
+using Hydra;
 
-namespace Hydra.Scenes
+using CommandersWar.Game;
+using CommandersWar.Boxes;
+
+namespace CommandersWar.Scenes
 {
     public class MainMenuScene : SKScene
     {
@@ -55,6 +58,20 @@ namespace Hydra.Scenes
             buttonSettings.setIcon("Settings");
             buttonSettings.set(GameColors.controlBlue, BlendState.Additive);
             addChild(buttonSettings);
+
+            Button buttonGameCenter = new Button("button_55x55", 312, 158, HorizontalAlignment.right, VerticalAlignment.top);
+            buttonGameCenter.setIcon("Game Center");
+            buttonGameCenter.set(GameColors.controlBlue, BlendState.Additive);
+            addChild(buttonGameCenter);
+
+            Button buttonFacebook = new Button("button_55x55", 312, 221, HorizontalAlignment.right, VerticalAlignment.top);
+            buttonFacebook.setIcon("Facebook");
+            buttonFacebook.set(GameColors.controlBlue, BlendState.Additive);
+            addChild(buttonFacebook);
+
+            ControlPremiumPoints controlPremiumPoints = new ControlPremiumPoints(8, 15);
+            controlPremiumPoints.setLabelText(playerData.premiumPoints);
+            addChild(controlPremiumPoints);
         }
 
         internal override void update()

@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CommandersWar.Game
 {
     public class Mothership

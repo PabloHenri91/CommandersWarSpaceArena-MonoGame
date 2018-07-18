@@ -10,6 +10,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using CommandersWar.Scenes;
+
+using CommandersWar.Game;
+using CommandersWar.Boxes;
+
 namespace Hydra.Scenes
 {
     public class GameScene : SKScene
