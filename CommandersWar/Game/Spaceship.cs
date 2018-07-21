@@ -35,33 +35,57 @@ namespace CommandersWar.Game
         int battleStartLevel;
         int skinIndex;
 
-        public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
+        public Spaceship(SpaceshipData spaceshipData,
+                         bool loadPhysics = false,
+                         Mothership.Team team = Mothership.Team.green) : base("")
         {
+            this.team = team;
+
             this.spaceshipData = spaceshipData;
 
             rarity = (Rarity)spaceshipData.rarity;
 
-            load(spaceshipData.level, 
+            load(spaceshipData.level,
                  spaceshipData.baseDamage,
-                 spaceshipData.baseLife, 
-                 spaceshipData.baseSpeed, 
-                 spaceshipData.baseRange, 
+                 spaceshipData.baseLife,
+                 spaceshipData.baseSpeed,
+                 spaceshipData.baseRange,
                  spaceshipData.skin,
                  new Color(spaceshipData.colorRed, spaceshipData.colorGreen, spaceshipData.colorBlue),
-                 loadPhysics, 
-                 team);
+                 loadPhysics);
         }
 
-        void load(int level, 
-                  int baseDamage,
-                  int baseLife, 
-                  int baseSpeed, 
-                  int baseRange, 
-                  int skinIndex, 
-                  Color color, 
-                  bool loadPhysics, 
-                  Mothership.Team team)
+        public Spaceship(int level,
+                         Rarity rarity,
+                         bool loadPhysics = false,
+                         Mothership.Team team = Mothership.Team.green,
+                         Color? color = null) : base("")
         {
+            this.team = team;
+
+            this.rarity = rarity;
+
+            load(level,
+                 GameMath.randomBaseDamage(rarity),
+                 GameMath.randomBaseLife(rarity),
+                 GameMath.randomBaseSpeed(rarity),
+                 GameMath.randomBaseRange(rarity),
+                 random.Next(skins.Count()),
+                 color ?? randomColor(),
+                 loadPhysics);
+        }
+
+        void load(int level,
+                  int baseDamage,
+                  int baseLife,
+                  int baseSpeed,
+                  int baseRange,
+                  int skinIndex,
+                  Color color,
+                  bool loadPhysics)
+        {
+
+
             this.level = level;
 
             this.baseDamage = baseDamage;
@@ -88,7 +112,7 @@ namespace CommandersWar.Game
 
         void loadPhysics()
         {
-            
+
         }
 
         internal static string[] skins = {
@@ -137,7 +161,8 @@ namespace CommandersWar.Game
             return new Color(red, green, blue);
         }
 
-        internal static Color randomColor(Element.Type someElement) {
+        internal static Color randomColor(Element.Type someElement)
+        {
             Color color = randomColor();
 
             if (element(color) == someElement)

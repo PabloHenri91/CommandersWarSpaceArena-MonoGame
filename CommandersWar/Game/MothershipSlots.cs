@@ -27,7 +27,7 @@ namespace CommandersWar.Game
             mothershipSlots.Add(new MothershipSlot(191, 0));
             mothershipSlots.Add(new MothershipSlot(286, 0));
 
-            foreach (var mothershipSlot in mothershipSlots)
+            foreach (MothershipSlot mothershipSlot in mothershipSlots)
             {
                 addChild(mothershipSlot);
             }
