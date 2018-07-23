@@ -40,6 +40,7 @@ namespace CommandersWar.Game
         void loadPhysics(Vector2 size)
         {
             physicsBody = new SKPhysicsBody(size, ShapeType.Circle);
+            physicsBody.IsStatic = true;
         }
 
         public enum Team

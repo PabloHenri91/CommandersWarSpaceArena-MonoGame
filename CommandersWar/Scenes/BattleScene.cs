@@ -40,7 +40,7 @@ namespace CommandersWar.Scenes
             foreach (MothershipSlotData mothershipSlotData in playerData.mothership.slots)
             {
                 Spaceship spaceship = new Spaceship(mothershipSlotData.spaceship, true);
-                mothership.spaceships[mothershipSlotData.index] = spaceship;
+                mothership.spaceships.Insert(mothershipSlotData.index, spaceship);
             }
 
             mothership.loadSpaceships(gameWorld);
