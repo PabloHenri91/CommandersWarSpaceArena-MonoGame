@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -10,9 +10,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using FarseerPhysics;
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Dynamics;
+
 using Hydra;
 
-using FarseerPhysics.Collision.Shapes;
 
 namespace CommandersWar.Game
 {
@@ -40,14 +43,8 @@ namespace CommandersWar.Game
         void loadPhysics(Vector2 size)
         {
             physicsBody = new SKPhysicsBody(size, ShapeType.Circle);
-            physicsBody.IsStatic = true;
-        }
-
-        public enum Team
-        {
-            red,
-            green,
-            blue
+            physicsBody.BodyType = BodyType.Static;
+            physicsBody.UserData = this;
         }
 
         internal void loadHealthBar(GameWorld gameWorld)
@@ -69,6 +66,23 @@ namespace CommandersWar.Game
             {
 
             }
+        }
+
+        internal override void removeFromParent()
+        {
+            base.removeFromParent();
+
+            if (physicsBody != null)
+            {
+                physicsBody.UserData = null;
+            }
+        }
+
+        public enum Team
+        {
+            red,
+            green,
+            blue
         }
     }
 }

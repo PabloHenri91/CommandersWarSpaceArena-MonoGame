@@ -34,6 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\ControlPremiumPoints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Mission.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Boxes\BoxSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\Stars.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

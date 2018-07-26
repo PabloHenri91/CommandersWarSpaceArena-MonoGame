@@ -32,6 +32,8 @@ namespace CommandersWar.Scenes
         {
             base.load();
 
+            gameWorld.loadStars();
+
             PlayerData playerData = MemoryCard.current.playerData;
 
             MothershipSlots mothershipSlots = new MothershipSlots(0, 289, HorizontalAlignment.center, VerticalAlignment.center);
@@ -144,6 +146,12 @@ namespace CommandersWar.Scenes
                         break;
                 }
             }
+        }
+
+        internal override void updateSize()
+        {
+            base.updateSize();
+            gameWorld.updateSize();
         }
 
         enum State

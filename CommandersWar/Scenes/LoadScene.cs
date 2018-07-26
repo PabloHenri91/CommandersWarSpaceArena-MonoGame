@@ -19,6 +19,8 @@ namespace Hydra.Scenes
 {
     public class GameScene : SKScene
     {
+        Stars stars;
+
         public GameScene()
         {
             backgroundColor = GameColors.backgroundColor;
@@ -48,5 +50,11 @@ namespace Hydra.Scenes
 
             presentScene(new MainMenuScene());
 		}
-	}
+
+        internal override void updateSize()
+        {
+            base.updateSize();
+            gameWorld?.updateSize();
+        }
+    }
 }
