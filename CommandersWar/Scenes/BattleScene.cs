@@ -31,6 +31,7 @@ namespace CommandersWar.Scenes
 
             PlayerData playerData = MemoryCard.current.playerData;
 
+            gameWorld.load();
             physicsWorld.Gravity = Vector2.Zero;
 
             mothership = new Mothership(Mothership.Team.blue);
