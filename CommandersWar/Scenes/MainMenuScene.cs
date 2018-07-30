@@ -56,6 +56,12 @@ namespace CommandersWar.Scenes
             buttonShips.set(GameColors.controlBlue, BlendState.Additive);
             addChild(buttonShips);
 
+
+            Button buttonPlayOnline = new Button("button_55x55", 249, 95, HorizontalAlignment.right, VerticalAlignment.top);
+            buttonPlayOnline.setIcon("Bluetooth");
+            buttonPlayOnline.set(GameColors.controlRed, BlendState.Additive);
+            addChild(buttonPlayOnline);
+
             buttonSettings = new Button("button_55x55", 312, 95, HorizontalAlignment.right, VerticalAlignment.top);
             buttonSettings.setIcon("Settings");
             buttonSettings.set(GameColors.controlBlue, BlendState.Additive);
@@ -65,15 +71,22 @@ namespace CommandersWar.Scenes
             buttonGameCenter.setIcon("Game Center");
             buttonGameCenter.set(GameColors.controlBlue, BlendState.Additive);
             addChild(buttonGameCenter);
+            buttonGameCenter.isHidden = true;
 
             Button buttonFacebook = new Button("button_55x55", 312, 221, HorizontalAlignment.right, VerticalAlignment.top);
             buttonFacebook.setIcon("Facebook");
             buttonFacebook.set(GameColors.controlBlue, BlendState.Additive);
             addChild(buttonFacebook);
+            buttonFacebook.isHidden = true;
+
 
             ControlPremiumPoints controlPremiumPoints = new ControlPremiumPoints(8, 15);
             controlPremiumPoints.setLabelText(playerData.premiumPoints);
             addChild(controlPremiumPoints);
+
+            ControlPoints controlPoints = new ControlPoints(223, 15);
+            controlPoints.setLabelText(playerData.points);
+            addChild(controlPoints);
         }
 
         internal override void update()

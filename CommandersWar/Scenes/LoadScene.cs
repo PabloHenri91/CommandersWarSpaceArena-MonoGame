@@ -19,8 +19,6 @@ namespace Hydra.Scenes
 {
     public class GameScene : SKScene
     {
-        Stars stars;
-
         public GameScene()
         {
             backgroundColor = GameColors.backgroundColor;
