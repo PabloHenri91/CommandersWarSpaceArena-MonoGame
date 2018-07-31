@@ -19,6 +19,11 @@ namespace CommandersWar.Scenes
 {
     public class CreditsScene : SKScene
     {
-        
+        internal override void load()
+        {
+            base.load();
+
+            Music.sharedInstance.play(GameMusic.MusicType.battle);
+        }
     }
 }

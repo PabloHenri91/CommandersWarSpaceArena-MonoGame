@@ -13,6 +13,66 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Song/klamm_airborne.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_airborne.mp3
+
+#begin Song/klamm_atmosphere.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_atmosphere.mp3
+
+#begin Song/klamm_battleship.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_battleship.mp3
+
+#begin Song/klamm_cracks.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_cracks.mp3
+
+#begin Song/klamm_destroyer.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_destroyer.mp3
+
+#begin Song/klamm_ice-and-fire.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_ice-and-fire.mp3
+
+#begin Song/klamm_infinity.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_infinity.mp3
+
+#begin Song/klamm_prisma.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_prisma.mp3
+
+#begin Song/klamm_vortex.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/klamm_vortex.mp3
+
+#begin Song/Scorpion.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Song/Scorpion.mp3
+
 #begin SpriteFont/kenpixel16.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

@@ -29,6 +29,8 @@ namespace CommandersWar.Scenes
         {
             base.load();
 
+            Music.sharedInstance.play(GameMusic.MusicType.battle);
+
             PlayerData playerData = MemoryCard.current.playerData;
 
             gameWorld.load();

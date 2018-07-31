@@ -25,13 +25,14 @@ namespace Hydra.Scenes
             defaultSize = new Vector2(375, 667);
 
             Label.defaultFontName = FontName.kenPixel;
-            Label.defaultColor = GameColors.fontWhite;
             Label.defaultFontSize = FontSize.size16;
         }
 
 		internal override void load()
 		{
             base.load();
+
+            Music.sharedInstance.play(GameMusic.MusicType.battle);
 
             gameWorld.load();
 
