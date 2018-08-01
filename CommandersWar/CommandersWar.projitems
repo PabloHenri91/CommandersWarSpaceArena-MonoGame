@@ -14,6 +14,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />
     <Folder Include="$(MSBuildThisFileDirectory)Game\" />
     <Folder Include="$(MSBuildThisFileDirectory)Boxes\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Realm\PlayerData.cs" />
@@ -31,12 +32,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Game\Spaceship.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameMath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Mothership.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\ControlPremiumPoints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Mission.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Boxes\BoxSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\Stars.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Game\ControlPoints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game\GameMusic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ControlPoints.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ControlPremiumPoints.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

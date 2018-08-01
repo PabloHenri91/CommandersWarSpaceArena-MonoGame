@@ -12,8 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 using Hydra;
 
-using CommandersWar.Game;
+using CommandersWar.Controls;
 using CommandersWar.Boxes;
+using CommandersWar.Game;
 
 namespace CommandersWar.Scenes
 {

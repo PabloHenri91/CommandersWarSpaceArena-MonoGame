@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 using Hydra;
 
-namespace CommandersWar.Game
+namespace CommandersWar.Controls
 {
     public class ControlPoints : Control
     {
