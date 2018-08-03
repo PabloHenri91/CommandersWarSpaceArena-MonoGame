@@ -24,7 +24,7 @@ namespace Hydra.Scenes
             backgroundColor = GameColors.backgroundColor;
             defaultSize = new Vector2(375, 667);
 
-            Label.defaultFontName = FontName.kenPixel;
+            Label.defaultFontName = FontName.kenpixel;
             Label.defaultFontSize = FontSize.size16;
         }
 

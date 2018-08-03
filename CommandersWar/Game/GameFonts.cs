@@ -5,7 +5,7 @@ namespace Hydra
     public enum FontName { 
         Default, 
         SpriteFont,
-        kenPixel
+        kenpixel
     }
 
     public enum FontSize {
