@@ -40,10 +40,10 @@ namespace CommandersWar.Scenes
             mothership.loadHealthBar(gameWorld);
             gameWorld.addChild(mothership);
 
-            foreach (MothershipSlotData mothershipSlotData in playerData.mothership.slots)
+            foreach (MothershipSlotData mothershipSlotData in playerData.mothership.slots.OrderBy(i => i.index))
             {
                 Spaceship spaceship = new Spaceship(mothershipSlotData.spaceship, true);
-                mothership.spaceships.Insert(mothershipSlotData.index, spaceship);
+                mothership.spaceships.Add(spaceship);
             }
 
             mothership.loadSpaceships(gameWorld);

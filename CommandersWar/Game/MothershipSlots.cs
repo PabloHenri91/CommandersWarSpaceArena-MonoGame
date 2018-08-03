@@ -35,7 +35,7 @@ namespace CommandersWar.Game
 
         internal void load(IEnumerable<MothershipSlotData> slots)
         {
-            foreach (MothershipSlotData mothershipSlotData in slots)
+            foreach (MothershipSlotData mothershipSlotData in slots.OrderBy(i => i.index))
             {
                 mothershipSlots[mothershipSlotData.index].load(mothershipSlotData.spaceship);
             }

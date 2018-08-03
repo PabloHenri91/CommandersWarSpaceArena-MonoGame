@@ -18,7 +18,7 @@ namespace CommandersWar.Game
     {
         SpaceshipData spaceshipData;
 
-        Mothership.Team team;
+        internal Mothership.Team team;
         Rarity rarity;
 
         int baseDamage;
@@ -34,6 +34,10 @@ namespace CommandersWar.Game
         int level;
         int battleStartLevel;
         int skinIndex;
+
+        int health = 1;
+
+        internal Vector2 startingPosition;
 
         public Spaceship(SpaceshipData spaceshipData,
                          bool loadPhysics = false,

@@ -21,10 +21,14 @@ namespace CommandersWar.Game
 {
     public class Mothership : SKSpriteNode
     {
+        private Team team;
+
         internal List<Spaceship> spaceships = new List<Spaceship>(4);
 
         public Mothership(Team team) : base("mothership")
         {
+            this.team = team;
+
             switch (team)
             {
                 case Team.blue:
@@ -34,6 +38,7 @@ namespace CommandersWar.Game
                 case Team.red:
                     color = GameColors.redTeam;
                     position = new Vector2(0, -289);
+                    zRotation = MathHelper.Pi;
                     break;
             }
 
@@ -54,10 +59,46 @@ namespace CommandersWar.Game
 
         internal void loadSpaceships(GameWorld gameWorld)
         {
+            int i = 0;
             foreach (Spaceship spaceship in spaceships)
             {
-
+                loadSpaceship(spaceship, gameWorld, i++);
             }
+        }
+
+        void loadSpaceship(Spaceship spaceship, GameWorld gameWorld, int i)
+        {
+            spaceship.team = team;
+
+            Vector2 spaceshipPosition = Vector2.Zero;
+
+            switch (i)
+            {
+                case 0:
+                    spaceshipPosition = new Vector2(-129, 0);
+                    break;
+                case 1:
+                    spaceshipPosition = new Vector2(-43, 0);
+                    break;
+                case 2:
+                    spaceshipPosition = new Vector2(43, 0);
+                    break;
+                case 3:
+                    spaceshipPosition = new Vector2(129, 0);
+                    break;
+            }
+
+            SKSpriteNode spriteNode = new SKSpriteNode("mothershipSlot");
+            spriteNode.position = spaceshipPosition;
+            spriteNode.color = color;
+            spriteNode.blendState = blendState;
+            addChild(spriteNode);
+
+            spaceship.position = spriteNode.positionInNode(gameWorld);
+            spaceship.zRotation = zRotation;
+            gameWorld.addChild(spaceship);
+
+            spaceship.startingPosition = spaceship.position;
         }
 
         internal void updateMaxHealth(List<Spaceship> spaceships)
