@@ -31,6 +31,8 @@ namespace CommandersWar.Game
             {
                 addChild(mothershipSlot);
             }
+
+            blendState = BlendState.Additive;
         }
 
         internal void load(IEnumerable<MothershipSlotData> slots)

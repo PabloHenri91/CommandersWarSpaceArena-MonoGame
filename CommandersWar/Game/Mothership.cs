@@ -27,6 +27,8 @@ namespace CommandersWar.Game
 
         public Mothership(Team team) : base("mothership")
         {
+            blendState = BlendState.Additive;
+
             this.team = team;
 
             switch (team)

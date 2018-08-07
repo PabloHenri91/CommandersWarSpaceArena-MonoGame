@@ -23,6 +23,7 @@ namespace Hydra
             loadStars();
 
             SKSpriteNode border = new SKSpriteNode(SKScene.current.Texture2D("gameWorld"));
+            border.blendState = BlendState.Additive;
             addChild(border);
 
             loadPhysics();

@@ -21,6 +21,7 @@ namespace CommandersWar.Game
                               VerticalAlignment verticalAlignment = VerticalAlignment.top)
             : base("box_89x89", x, y, horizontalAlignment, verticalAlignment)
         {
+            blendState = BlendState.Additive;
         }
 
         internal void load(SpaceshipData spaceshipData)
