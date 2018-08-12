@@ -41,7 +41,7 @@ namespace CommandersWar.Game
                     );
                     addChild(spriteNode);
 
-                    spriteNode.zRotation = MathHelper.PiOver2 * (int)(MathHelper.ToDegrees((float)(random.NextDouble() * MathHelper.TwoPi)) / 90.0f);
+                    //spriteNode.zRotation = MathHelper.PiOver2 * (int)(MathHelper.ToDegrees((float)(random.NextDouble() * MathHelper.TwoPi)) / 90.0f);
                 }
             }
 

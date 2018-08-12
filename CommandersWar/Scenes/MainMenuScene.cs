@@ -29,6 +29,10 @@ namespace CommandersWar.Scenes
 
         BoxSettings boxSettings;
 
+        Control control;
+
+        MothershipSlots mothershipSlots;
+
         internal override void load()
         {
             base.load();
@@ -39,7 +43,7 @@ namespace CommandersWar.Scenes
 
             PlayerData playerData = MemoryCard.current.playerData;
 
-            MothershipSlots mothershipSlots = new MothershipSlots(0, 289, HorizontalAlignment.center, VerticalAlignment.center);
+            mothershipSlots = new MothershipSlots(0, 289, HorizontalAlignment.center, VerticalAlignment.center);
             mothershipSlots.load(playerData.mothership.slots);
             addChild(mothershipSlots);
 
@@ -54,7 +58,7 @@ namespace CommandersWar.Scenes
             addChild(buttonBuy);
             buttonBuy.isHidden = true;
 
-            buttonShips = new Button("button_55x55", 8, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
+            buttonShips = new Button("button_55x55", 8, 604, HorizontalAlignment.left, VerticalAlignment.bottom);
             buttonShips.setIcon("Rocket");
             buttonShips.set(GameColors.controlBlue, BlendState.Additive);
             addChild(buttonShips);
@@ -82,6 +86,13 @@ namespace CommandersWar.Scenes
             addChild(buttonFacebook);
             buttonFacebook.isHidden = true;
 
+            ControlMission controlMission = new ControlMission();
+            addChild(controlMission);
+
+
+            control = new Control("box_xx89", 0.0f, -2.0f);
+            control.size = new Vector2(currentSize.X, control.size.Y);
+            addChild(control);
 
             ControlPremiumPoints controlPremiumPoints = new ControlPremiumPoints(8, 15);
             controlPremiumPoints.setLabelText(playerData.premiumPoints);
@@ -138,7 +149,8 @@ namespace CommandersWar.Scenes
                             return;
                         }
 
-                        if (buttonShips.contains(touch.locationIn(buttonShips.parent)))
+                        if (buttonShips.contains(touch.locationIn(buttonShips.parent)) ||
+                            mothershipSlots.contains(touch.locationIn(mothershipSlots.parent)))
                         {
                             nextState = State.hangar;
                             return;
@@ -168,6 +180,7 @@ namespace CommandersWar.Scenes
         {
             base.updateSize();
             gameWorld.updateSize();
+            control.size = new Vector2(currentSize.X, control.size.Y);
         }
 
         enum State

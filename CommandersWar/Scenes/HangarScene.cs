@@ -25,6 +25,8 @@ namespace CommandersWar.Scenes
 
         Button buttonBack;
 
+        Control control;
+
         internal override void load()
         {
             base.load();
@@ -35,10 +37,15 @@ namespace CommandersWar.Scenes
 
             PlayerData playerData = MemoryCard.current.playerData;
 
-            buttonBack = new Button("button_55x55", 8, 604, HorizontalAlignment.center, VerticalAlignment.bottom);
+            buttonBack = new Button("button_55x55", 8, 604, HorizontalAlignment.left, VerticalAlignment.bottom);
             buttonBack.setIcon("Back");
             buttonBack.set(GameColors.controlBlue, BlendState.Additive);
             addChild(buttonBack);
+
+
+            control = new Control("box_xx89", 0.0f, -2.0f);
+            control.size = new Vector2(currentSize.X, control.size.Y);
+            addChild(control);
 
             ControlPremiumPoints controlPremiumPoints = new ControlPremiumPoints(8, 15);
             controlPremiumPoints.setLabelText(playerData.premiumPoints);
@@ -90,6 +97,13 @@ namespace CommandersWar.Scenes
                         break;
                 }
             }
+        }
+
+        internal override void updateSize()
+        {
+            base.updateSize();
+            gameWorld.updateSize();
+            control.size = new Vector2(currentSize.X, control.size.Y);
         }
 
         enum State

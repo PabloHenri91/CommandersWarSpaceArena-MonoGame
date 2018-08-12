@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class MothershipSlots : Control
+    class MothershipSlots : Button
     {
         List<MothershipSlot> mothershipSlots = new List<MothershipSlot>();
 
@@ -22,6 +22,7 @@ namespace CommandersWar.Game
                                HorizontalAlignment horizontalAlignment = HorizontalAlignment.left,
                                VerticalAlignment verticalAlignment = VerticalAlignment.top) : base("", x, y, horizontalAlignment, verticalAlignment)
         {
+            size = new Vector2(375, 89);
             mothershipSlots.Add(new MothershipSlot(0, 0));
             mothershipSlots.Add(new MothershipSlot(95, 0));
             mothershipSlots.Add(new MothershipSlot(191, 0));
