@@ -101,6 +101,8 @@ namespace CommandersWar.Game
             gameWorld.addChild(spaceship);
 
             spaceship.startingPosition = spaceship.position;
+
+            spaceship.loadHealthBar();
         }
 
         internal void updateMaxHealth(List<Spaceship> spaceships)

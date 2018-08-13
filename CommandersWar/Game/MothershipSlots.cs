@@ -40,7 +40,9 @@ namespace CommandersWar.Game
         {
             foreach (MothershipSlotData mothershipSlotData in slots.OrderBy(i => i.index))
             {
-                mothershipSlots[mothershipSlotData.index].load(mothershipSlotData.spaceship);
+                MothershipSlot mothershipSlot = mothershipSlots[mothershipSlotData.index];
+                mothershipSlot.load(mothershipSlotData.spaceship);
+                mothershipSlot.loadHealthBar();
             }
         }
     }

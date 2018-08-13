@@ -39,6 +39,8 @@ namespace CommandersWar.Game
 
         internal Vector2 startingPosition;
 
+        SpaceshipHealthBar spaceshipHealthBar;
+
         public Spaceship(SpaceshipData spaceshipData,
                          bool loadPhysics = false,
                          Mothership.Team team = Mothership.Team.green) : base("")
@@ -57,6 +59,12 @@ namespace CommandersWar.Game
                  spaceshipData.skin,
                  new Color(spaceshipData.colorRed, spaceshipData.colorGreen, spaceshipData.colorBlue),
                  loadPhysics);
+        }
+
+        internal void loadHealthBar()
+        {
+            spaceshipHealthBar = new SpaceshipHealthBar(level, health, team, rarity);
+            addChild(spaceshipHealthBar);
         }
 
         public Spaceship(int level,

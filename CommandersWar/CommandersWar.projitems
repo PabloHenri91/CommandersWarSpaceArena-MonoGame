@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ControlPoints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ControlPremiumPoints.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ControlMission.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Game\SpaceshipHealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

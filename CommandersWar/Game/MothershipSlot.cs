@@ -16,6 +16,8 @@ namespace CommandersWar.Game
 {
     public class MothershipSlot : Control
     {
+        Spaceship spaceship;
+
         public MothershipSlot(int x, int y,
                               HorizontalAlignment horizontalAlignment = HorizontalAlignment.left,
                               VerticalAlignment verticalAlignment = VerticalAlignment.top)
@@ -29,11 +31,18 @@ namespace CommandersWar.Game
             load(new Spaceship(spaceshipData));
         }
 
-        internal void load(Spaceship spaceship)
+        internal void load(Spaceship someSpaceship)
         {
+            spaceship = someSpaceship;
             spaceship.position = new Vector2(size.X / 2, size.Y / 2);
             spaceship.setScaleToFit(new Vector2(size.X - 16, size.Y - 16));
             addChild(spaceship);
+        }
+
+        internal void loadHealthBar()
+        {
+            if (spaceship == null) { return; }
+            spaceship.loadHealthBar();
         }
     }
 }
