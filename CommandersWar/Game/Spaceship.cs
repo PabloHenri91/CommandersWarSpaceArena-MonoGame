@@ -39,7 +39,7 @@ namespace CommandersWar.Game
 
         internal Vector2 startingPosition;
 
-        SpaceshipHealthBar spaceshipHealthBar;
+        SpaceshipHealthBar healthBar;
 
         public Spaceship(SpaceshipData spaceshipData,
                          bool loadPhysics = false,
@@ -63,8 +63,15 @@ namespace CommandersWar.Game
 
         internal void loadHealthBar()
         {
-            spaceshipHealthBar = new SpaceshipHealthBar(level, health, team, rarity);
-            addChild(spaceshipHealthBar);
+            healthBar = new SpaceshipHealthBar(level, health, team, rarity);
+            healthBar.position = position;
+            parent.addChild(healthBar);
+            updateHealthBarPosition();
+        }
+
+        internal void updateHealthBarPosition() {
+            if (healthBar == null) { return; }
+            healthBar.position = position + healthBar.positionOffset;
         }
 
         public Spaceship(int level,
@@ -111,7 +118,7 @@ namespace CommandersWar.Game
 
             texture2D = SKScene.current.Texture2D(skins[skinIndex]);
             size = texture2D.Bounds.Size.ToVector2();
-            setScaleToFit(55, 55);
+            setScaleToFit(Vector2.One * diameter);
 
             this.color = color;
             blendState = BlendState.Additive;
@@ -185,6 +192,38 @@ namespace CommandersWar.Game
             return randomColor(someElement);
         }
 
+        internal static Color rarityColor(Rarity rarity) {
+            
+            Color someColor = Color.Transparent;
+
+            switch (rarity)
+            {
+                case Rarity.common:
+                    someColor = GameColors.common;
+                    break;
+                case Rarity.uncommon:
+                    someColor = GameColors.uncommon;
+                    break;
+                case Rarity.rare:
+                    someColor = GameColors.rare;
+                    break;
+                case Rarity.heroic:
+                    someColor = GameColors.heroic;
+                    break;
+                case Rarity.epic:
+                    someColor = GameColors.epic;
+                    break;
+                case Rarity.legendary:
+                    someColor = GameColors.legendary;
+                    break;
+                case Rarity.supreme:
+                    someColor = GameColors.supreme;
+                    break;
+            }
+
+            return someColor;
+        }
+
         static Element.Type element(Color color)
         {
             float red = color.R / 255.0f;
@@ -224,6 +263,7 @@ namespace CommandersWar.Game
 
             return Element.Type.darkness;
         }
+        internal static float diameter = 55.0f;
 
         public enum Rarity
         {
