@@ -25,6 +25,11 @@ namespace CommandersWar.Scenes
         Mothership mothership;
         Mothership botMothership;
 
+        float battleBeginTime;
+        float maxBattleDuration = 60.0f * 3.0f;
+
+        float lastBotUpdate;
+
         internal override void load()
         {
             base.load();
@@ -70,6 +75,100 @@ namespace CommandersWar.Scenes
             botMothership.updateMaxHealth(mothership.spaceships);
 
             nextState = State.battle;
+        }
+
+        internal override void update()
+        {
+            base.update();
+
+            if (state == nextState)
+            {
+                switch (state)
+                {
+                    case State.battle:
+                        updateBattle();
+                        break;
+                }
+            }
+            else
+            {
+                state = nextState;
+                switch (state)
+                {
+                    case State.battle:
+                        loadBattle();
+                        break;
+                    case State.mainMenu:
+                        presentScene(new MainMenuScene());
+                        break;
+                }
+            }
+        }
+
+        void loadBattle()
+        {
+            if (battleBeginTime.Equals(0.0f))
+            {
+                battleBeginTime = currentTime;
+            }
+        }
+
+        void updateBattle()
+        {
+            if (mothership.health <= 0 || botMothership.health <=0)
+            {
+                nextState = State.battleEnd;
+            }
+
+            mothership.update(botMothership, botMothership.spaceships);
+            botMothership.update(mothership, mothership.spaceships);
+
+            if (currentTime - lastBotUpdate > 1.0f)
+            {
+                lastBotUpdate = currentTime;
+
+                int health = 0;
+                foreach (var spaceship in mothership.spaceships)
+                {
+                    health += spaceship.health;
+                }
+                if (health <= 0 || currentTime - battleBeginTime > maxBattleDuration)
+                {
+                    mothership.health -= mothership.maxHealth / 10;
+                    mothership.updateHealthBar(mothership.health, mothership.maxHealth);
+                    if (mothership.health <= 0)
+                    {
+                        mothership.die();
+                    }
+                    else
+                    {
+                        run(mothership.explosionAction());
+                    }
+                }
+
+                health = 0;
+                foreach (var spaceship in botMothership.spaceships)
+                {
+                    health += spaceship.health;
+                }
+                if (health <= 0 || currentTime - battleBeginTime > maxBattleDuration)
+                {
+                    botMothership.health -= botMothership.maxHealth / 10;
+                    botMothership.updateHealthBar(botMothership.health, botMothership.maxHealth);
+                    if (botMothership.health <= 0)
+                    {
+                        botMothership.die();
+                    }
+                    else
+                    {
+                        run(botMothership.explosionAction());
+                    }
+                }
+
+                var aliveBotSpaceships = botMothership.spaceships.Find(x => {
+                    return x.health > 0; // TODO:
+                });
+            }
         }
 
         enum State

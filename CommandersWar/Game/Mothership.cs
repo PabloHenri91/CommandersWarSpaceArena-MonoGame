@@ -21,9 +21,12 @@ namespace CommandersWar.Game
 {
     public class Mothership : SKSpriteNode
     {
-        private Team team;
+        Team team;
 
         internal List<Spaceship> spaceships = new List<Spaceship>(4);
+
+        internal int maxHealth = 5800; // ???
+        internal int health = 5800; // ???
 
         public Mothership(Team team) : base("mothership")
         {
@@ -56,7 +59,7 @@ namespace CommandersWar.Game
 
         internal void loadHealthBar(GameWorld gameWorld)
         {
-            
+
         }
 
         internal void loadSpaceships(GameWorld gameWorld)
@@ -128,6 +131,29 @@ namespace CommandersWar.Game
             red,
             green,
             blue
+        }
+
+        internal void update(Mothership enemyMothership, IEnumerable<Spaceship> enemySpaceships)
+        {
+            foreach (Spaceship spaceship in spaceships)
+            {
+                spaceship.update(enemyMothership, enemySpaceships, spaceships);
+            }
+        }
+
+        internal void updateHealthBar(int health, int maxHealth)
+        {
+
+        }
+
+        internal void die()
+        {
+            
+        }
+
+        internal SKAction explosionAction()
+        {
+            return new SKAction(0);
         }
     }
 }

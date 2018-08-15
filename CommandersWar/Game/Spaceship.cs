@@ -35,7 +35,7 @@ namespace CommandersWar.Game
         int battleStartLevel;
         int skinIndex;
 
-        int health = 1;
+        internal int health = 1;
 
         internal Vector2 startingPosition;
 
@@ -69,7 +69,8 @@ namespace CommandersWar.Game
             updateHealthBarPosition();
         }
 
-        internal void updateHealthBarPosition() {
+        internal void updateHealthBarPosition()
+        {
             if (healthBar == null) { return; }
             healthBar.position = position + healthBar.positionOffset;
         }
@@ -135,6 +136,12 @@ namespace CommandersWar.Game
         void loadPhysics()
         {
 
+        }
+
+        internal void update(Mothership enemyMothership = null, IEnumerable<Spaceship> enemySpaceships = null, List<Spaceship> allySpaceships = null)
+        {
+            enemySpaceships = enemySpaceships ?? new List<Spaceship>();
+            allySpaceships = allySpaceships ?? new List<Spaceship>();
         }
 
         void updateAttributes()
@@ -203,8 +210,9 @@ namespace CommandersWar.Game
             return randomColor(someElement);
         }
 
-        internal static Color rarityColor(Rarity rarity) {
-            
+        internal static Color rarityColor(Rarity rarity)
+        {
+
             Color someColor = Color.Transparent;
 
             switch (rarity)
