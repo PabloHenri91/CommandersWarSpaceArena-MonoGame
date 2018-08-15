@@ -39,7 +39,7 @@ namespace CommandersWar.Game
 
         internal Vector2 startingPosition;
 
-        SpaceshipHealthBar healthBar;
+        internal SpaceshipHealthBar healthBar;
 
         public Spaceship(SpaceshipData spaceshipData,
                          bool loadPhysics = false,
@@ -106,12 +106,6 @@ namespace CommandersWar.Game
 
 
             this.level = level;
-
-            this.baseDamage = baseDamage;
-            this.baseLife = baseLife;
-            this.baseSpeed = baseSpeed;
-            this.baseRange = baseRange;
-
             battleStartLevel = level;
 
             this.skinIndex = skinIndex;
@@ -123,6 +117,15 @@ namespace CommandersWar.Game
             this.color = color;
             blendState = BlendState.Additive;
 
+            this.baseDamage = baseDamage;
+            this.baseLife = baseLife;
+            this.baseSpeed = baseSpeed;
+            this.baseRange = baseRange;
+
+            updateAttributes();
+
+            health = maxHealth;
+
             if (loadPhysics)
             {
                 this.loadPhysics();
@@ -132,6 +135,14 @@ namespace CommandersWar.Game
         void loadPhysics()
         {
 
+        }
+
+        void updateAttributes()
+        {
+            maxHealth = GameMath.maxHealth(level, baseLife);
+            damage = GameMath.damage(level, baseDamage);
+            speedAtribute = GameMath.speed(level, baseSpeed);
+            weaponRange = GameMath.range(level, baseRange);
         }
 
         internal static string[] skins = {

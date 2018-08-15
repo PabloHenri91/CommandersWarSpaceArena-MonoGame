@@ -43,6 +43,8 @@ namespace CommandersWar.Game
         {
             if (spaceship == null) { return; }
             spaceship.loadHealthBar();
+            spaceship.healthBar.positionOffset = new Vector2(4.0f, (size.X / 2.0f) + 9.0f);
+            spaceship.updateHealthBarPosition();
         }
     }
 }

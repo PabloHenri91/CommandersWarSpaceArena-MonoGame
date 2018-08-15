@@ -26,6 +26,8 @@ namespace Hydra.Scenes
 
             Label.defaultFontName = FontName.kenpixel;
             Label.defaultFontSize = FontSize.size16;
+
+            //Game1.samplerState = SamplerState.PointClamp;
         }
 
 		internal override void load()
