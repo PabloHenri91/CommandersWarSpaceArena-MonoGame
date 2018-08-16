@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Hydra
 {
-    public class GameColors
+    public static class GameColors
     {
         internal static Color backgroundColor = new Color(0.0862745098f, 0.05882352941f, 0.1490196078f);
 

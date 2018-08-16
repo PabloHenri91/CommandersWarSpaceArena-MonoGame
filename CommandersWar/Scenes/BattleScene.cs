@@ -165,9 +165,21 @@ namespace CommandersWar.Scenes
                     }
                 }
 
-                var aliveBotSpaceships = botMothership.spaceships.Find(x => {
+                List<Spaceship> aliveBotSpaceships = botMothership.spaceships.Where(x => {
                     return x.health > 0; // TODO:
-                });
+                }).ToList();
+
+                if (aliveBotSpaceships.Count() > 0)
+                {
+                    Spaceship botSpaceship = aliveBotSpaceships[random.Next(aliveBotSpaceships.Count())];
+
+                    var aliveSpaceships = mothership.spaceships.Where(x =>
+                    {
+                        return x.health > 0;  // TODO:
+                    }).OrderByDescending(x => {
+                        return x.health;  // TODO:
+                    });
+                }
             }
         }
 
