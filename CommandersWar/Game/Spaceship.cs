@@ -41,6 +41,8 @@ namespace CommandersWar.Game
 
         internal SpaceshipHealthBar healthBar;
 
+        internal SKNode targetNode;
+
         public Spaceship(SpaceshipData spaceshipData,
                          bool loadPhysics = false,
                          Mothership.Team team = Mothership.Team.green) : base("")

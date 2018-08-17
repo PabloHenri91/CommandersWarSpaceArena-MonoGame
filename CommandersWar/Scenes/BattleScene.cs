@@ -179,6 +179,16 @@ namespace CommandersWar.Scenes
                     }).OrderByDescending(x => {
                         return x.health;  // TODO:
                     });
+
+                    var targets = aliveSpaceships.Where(spaceship => {
+                        if (spaceship.targetNode is Mothership) {
+                            var point = new Vector2(spaceship.position.X, spaceship.targetNode.position.y);
+                            if (spaceship.position.distanceTo(point) <= 1.0f) { // TODO:
+                                return true;
+                            }
+                        }
+                        return false;
+                    });
                 }
             }
         }
@@ -195,6 +205,14 @@ namespace CommandersWar.Scenes
 
             mainMenu,
             credits
+        }
+    }
+
+    // TODO: move
+    public static class MathExtension {
+
+        public static float distanceTo(this Vector2 vector2, Vector2 position) {
+            return Vector2.Distance(vector2, position);
         }
     }
 }
