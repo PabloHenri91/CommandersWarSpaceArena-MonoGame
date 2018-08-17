@@ -16,20 +16,22 @@ namespace CommandersWar.Game
 {
     public class Element
     {
-        internal Type element;
+        internal static float damageMultiplier = 1.5f;
+            
+        internal Type type;
         internal Type strength;
         internal Type weakness;
         internal Color color;
 
-        public Element(Type element, Type strength, Type weakness)
+        public Element(Type type, Type strength, Type weakness)
         {
-            this.element = element;
+            this.type = type;
             this.strength = strength;
             this.weakness = weakness;
 
             Color elementColor = GameColors.darkness;
 
-            switch (element)
+            switch (type)
             {
                 case Type.fire:
                     elementColor = GameColors.fire;

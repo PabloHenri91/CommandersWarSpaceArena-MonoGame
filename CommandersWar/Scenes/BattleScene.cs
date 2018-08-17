@@ -63,8 +63,8 @@ namespace CommandersWar.Scenes
             foreach (Spaceship.Rarity rarity in mission.rarities)
             {
                 Spaceship spaceship = new Spaceship(MathHelper.Clamp((mission.level + random.Next(-2, 0)), 1, 10),
-                                                    rarity, 
-                                                    true, 
+                                                    rarity,
+                                                    true,
                                                     Mothership.Team.red, mission.color);
                 botMothership.spaceships.Add(spaceship);
             }
@@ -115,7 +115,7 @@ namespace CommandersWar.Scenes
 
         void updateBattle()
         {
-            if (mothership.health <= 0 || botMothership.health <=0)
+            if (mothership.health <= 0 || botMothership.health <= 0)
             {
                 nextState = State.battleEnd;
             }
@@ -165,30 +165,79 @@ namespace CommandersWar.Scenes
                     }
                 }
 
-                List<Spaceship> aliveBotSpaceships = botMothership.spaceships.Where(x => {
-                    return x.health > 0; // TODO:
+                List<Spaceship> aliveBotSpaceships = botMothership.spaceships.Where(spaceship => {
+                    if (spaceship.destination != null)
+                    {
+                        if (spaceship.destination == spaceship.startingPosition)
+                        {
+                            return false;
+                        }
+                    }
+
+                    if ((spaceship.position - spaceship.startingPosition).LengthSquared() < 4.0f)
+                    {
+                        return spaceship.health >= spaceship.maxHealth;
+                    }
+
+                    return spaceship.health > 0;
                 }).ToList();
 
-                if (aliveBotSpaceships.Count() > 0)
+                //if (aliveBotSpaceships.Count() > 0)
                 {
                     Spaceship botSpaceship = aliveBotSpaceships[random.Next(aliveBotSpaceships.Count())];
 
-                    var aliveSpaceships = mothership.spaceships.Where(x =>
+                    var aliveSpaceships = mothership.spaceships.Where(spaceship =>
                     {
-                        return x.health > 0;  // TODO:
-                    }).OrderByDescending(x => {
-                        return x.health;  // TODO:
+                        return spaceship.health > 0;
+                    }).OrderByDescending(spaceship => {
+                        float value = spaceship.health;
+
+                        if (spaceship.element.weakness == botSpaceship.element.type)
+                        {
+                            value /= Element.damageMultiplier;
+                        }
+
+                        if (spaceship.element.strength == botSpaceship.element.type)
+                        {
+                            value *= Element.damageMultiplier;
+                        }
+
+                        return value;
                     });
 
                     var targets = aliveSpaceships.Where(spaceship => {
-                        if (spaceship.targetNode is Mothership) {
-                            var point = new Vector2(spaceship.position.X, spaceship.targetNode.position.y);
-                            if (spaceship.position.distanceTo(point) <= 1.0f) { // TODO:
+                        if (spaceship.targetNode is Mothership)
+                        {
+                            var point = new Vector2(spaceship.position.X, spaceship.targetNode.position.Y);
+                            if (spaceship.position.distanceTo(point) <= spaceship.weaponRange + botMothership.size.Y / 2.0f)
+                            {
                                 return true;
                             }
                         }
                         return false;
                     });
+
+                    if (targets.Count() > 0)
+                    {
+                        botSpaceship.setTarget(targets.First());
+                    }
+                    else
+                    {
+                        if (botSpaceship.targetNode != null)
+                        {
+                            if (botSpaceship.health < botSpaceship.maxHealth / 2)
+                            {
+                                botSpaceship.retreat();
+                            }
+                        }
+                        else
+                        {
+                            if (botSpaceship.physicsBody != null)
+                            {
+                                // TODO:
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -205,14 +254,6 @@ namespace CommandersWar.Scenes
 
             mainMenu,
             credits
-        }
-    }
-
-    // TODO: move
-    public static class MathExtension {
-
-        public static float distanceTo(this Vector2 vector2, Vector2 position) {
-            return Vector2.Distance(vector2, position);
         }
     }
 }

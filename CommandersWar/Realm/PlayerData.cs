@@ -112,7 +112,7 @@ namespace Hydra
                 mothershipSlotData.index = i;
 
                 SpaceshipData spaceshipData = memoryCard.newSpaceshipData(Spaceship.Rarity.common,
-                                                                          Spaceship.randomColor(elementTypes[i]));
+                                                                          Spaceship.randomColorFor(elementTypes[i]));
                 mothershipSlotData.spaceship = spaceshipData;
                 mothershipData.addToSlots(mothershipSlotData);
             }

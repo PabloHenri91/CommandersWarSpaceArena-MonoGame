@@ -18,6 +18,8 @@ namespace CommandersWar.Game
     {
         SpaceshipData spaceshipData;
 
+        internal Element element;
+
         internal Mothership.Team team;
         Rarity rarity;
 
@@ -26,10 +28,10 @@ namespace CommandersWar.Game
         int baseSpeed;
         int baseRange;
 
-        int maxHealth;
         int damage;
+        internal int maxHealth;
         int speedAtribute;
-        int weaponRange;
+        internal int weaponRange;
 
         int level;
         int battleStartLevel;
@@ -38,6 +40,7 @@ namespace CommandersWar.Game
         internal int health = 1;
 
         internal Vector2 startingPosition;
+        internal Vector2? destination;
 
         internal SpaceshipHealthBar healthBar;
 
@@ -117,6 +120,8 @@ namespace CommandersWar.Game
             size = texture2D.Bounds.Size.ToVector2();
             setScaleToFit(Vector2.One * diameter);
 
+            element = Element.types[elementFor(color)];
+
             this.color = color;
             blendState = BlendState.Additive;
 
@@ -182,7 +187,7 @@ namespace CommandersWar.Game
 
             Color color = new Color(red, green, blue);
 
-            Element.Type elementType = element(color);
+            Element.Type elementType = elementFor(color);
             Color elementTypeColor = Element.types[elementType].color;
 
             red = (red + elementTypeColor.R / 255.0f) / 2.0f;
@@ -200,19 +205,19 @@ namespace CommandersWar.Game
             return new Color(red, green, blue);
         }
 
-        internal static Color randomColor(Element.Type someElement)
+        internal static Color randomColorFor(Element.Type someElement)
         {
             Color color = randomColor();
 
-            if (element(color) == someElement)
+            if (elementFor(color) == someElement)
             {
                 return color;
             }
 
-            return randomColor(someElement);
+            return randomColorFor(someElement);
         }
 
-        internal static Color rarityColor(Rarity rarity)
+        internal static Color colorFor(Rarity rarity)
         {
 
             Color someColor = Color.Transparent;
@@ -245,7 +250,7 @@ namespace CommandersWar.Game
             return someColor;
         }
 
-        static Element.Type element(Color color)
+        static Element.Type elementFor(Color color)
         {
             float red = color.R / 255.0f;
             float green = color.G / 255.0f;
@@ -284,6 +289,17 @@ namespace CommandersWar.Game
 
             return Element.Type.darkness;
         }
+
+        internal void setTarget(Spaceship spaceship)
+        {
+
+        }
+
+        internal void retreat()
+        {
+
+        }
+
         internal static float diameter = 55.0f;
 
         public enum Rarity

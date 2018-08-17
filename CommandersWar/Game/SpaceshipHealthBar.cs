@@ -26,7 +26,7 @@ namespace CommandersWar.Game
         public SpaceshipHealthBar(int level, int health, Mothership.Team team, Spaceship.Rarity rarity) : base("spaceshipHealthBarBackground")
         {
             Color teamColor = Color.Transparent;
-            Color rarityColor = Spaceship.rarityColor(rarity);
+            Color rarityColor = Spaceship.colorFor(rarity);
 
             switch (team)
             {
