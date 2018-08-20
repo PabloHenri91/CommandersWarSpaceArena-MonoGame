@@ -295,6 +295,11 @@ namespace CommandersWar.Game
 
         }
 
+        internal void setTarget(Mothership mothership)
+        {
+
+        }
+
         internal void retreat()
         {
 

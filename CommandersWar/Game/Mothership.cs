@@ -133,7 +133,7 @@ namespace CommandersWar.Game
             blue
         }
 
-        internal void update(Mothership enemyMothership, IEnumerable<Spaceship> enemySpaceships)
+        internal void update(Mothership enemyMothership = null, IEnumerable<Spaceship> enemySpaceships = null)
         {
             foreach (Spaceship spaceship in spaceships)
             {

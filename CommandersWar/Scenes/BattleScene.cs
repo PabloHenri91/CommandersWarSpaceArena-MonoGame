@@ -15,6 +15,8 @@ using Hydra;
 using CommandersWar.Game;
 using CommandersWar.Boxes;
 
+using FarseerPhysics.Dynamics;
+
 namespace CommandersWar.Scenes
 {
     public class BattleScene : SKScene
@@ -87,6 +89,9 @@ namespace CommandersWar.Scenes
                 {
                     case State.battle:
                         updateBattle();
+                        break;
+                    default:
+                        updateDefault();
                         break;
                 }
             }
@@ -182,7 +187,7 @@ namespace CommandersWar.Scenes
                     return spaceship.health > 0;
                 }).ToList();
 
-                //if (aliveBotSpaceships.Count() > 0)
+                if (aliveBotSpaceships.Count() > 0)
                 {
                     Spaceship botSpaceship = aliveBotSpaceships[random.Next(aliveBotSpaceships.Count())];
 
@@ -234,12 +239,56 @@ namespace CommandersWar.Scenes
                         {
                             if (botSpaceship.physicsBody != null)
                             {
-                                // TODO:
+                                SKPhysicsBody physicsBody = botSpaceship.physicsBody;
+                                if (physicsBody.BodyType == BodyType.Dynamic || botSpaceship.health == botSpaceship.maxHealth)
+                                {
+                                    if (botSpaceship.health < botSpaceship.maxHealth)
+                                    {
+                                        botSpaceship.retreat();
+                                    }
+                                    else
+                                    {
+                                        targets = aliveSpaceships.Where(spaceship =>
+                                        {
+                                            if (spaceship.targetNode is Spaceship)
+                                            {
+                                                return spaceship.element.weakness == botSpaceship.element.type;
+                                            }
+                                            return false;
+                                        });
+
+                                        if (targets.Count() > 0)
+                                        {
+                                            botSpaceship.setTarget(targets.First());
+                                        }
+                                        else
+                                        {
+                                            var x = random.Next(-55 / 2, 55 / 2);
+                                            var y = random.Next(-89, 89 / 2);
+                                            var point = botSpaceship.position + new Vector2(x, y);
+                                            if (mothership.contains(point))
+                                            {
+                                                botSpaceship.setTarget(mothership);
+                                            }
+                                            else
+                                            {
+                                                botSpaceship.physicsBody.BodyType = BodyType.Dynamic;
+                                                botSpaceship.destination = point;
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+
+        void updateDefault()
+        {
+            mothership.update();
+            botMothership.update();
         }
 
         enum State
