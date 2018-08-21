@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class Spaceship : SKSpriteNode
+    class Spaceship : SKSpriteNode
     {
         SpaceshipData spaceshipData;
 

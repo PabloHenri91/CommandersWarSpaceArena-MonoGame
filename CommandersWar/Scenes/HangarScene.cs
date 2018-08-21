@@ -18,7 +18,7 @@ using CommandersWar.Game;
 
 namespace CommandersWar.Scenes
 {
-    public class HangarScene : SKScene
+    class HangarScene : SKScene
     {
         State state = State.hangar;
         State nextState = State.hangar;

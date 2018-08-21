@@ -17,7 +17,7 @@ using CommandersWar.Boxes;
 
 namespace Hydra.Scenes
 {
-    public class GameScene : SKScene
+    class GameScene : SKScene
     {
         public GameScene()
         {

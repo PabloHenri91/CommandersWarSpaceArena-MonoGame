@@ -6,7 +6,7 @@ using static CommandersWar.Game.GameMusic;
 
 namespace CommandersWar.Game
 {
-    public class GameMusic
+    class GameMusic
     {
         internal static MusicType musicType = MusicType.noMusic;
 
@@ -34,7 +34,7 @@ namespace CommandersWar.Game
         };
     }
 
-    public static class MusicExtension
+    static class MusicExtension
     {
         internal static void play(this Music music, MusicType musicType)
         {

@@ -3,7 +3,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public static class GameMath
+    static class GameMath
     {
         internal static int unlockSpaceshipPriceInPremiumPoints(Spaceship.Rarity rarity)
         {

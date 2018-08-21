@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class MothershipSlot : Control
+    class MothershipSlot : Control
     {
         Spaceship spaceship;
 

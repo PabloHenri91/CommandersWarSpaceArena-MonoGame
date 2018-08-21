@@ -19,7 +19,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class Mothership : SKSpriteNode
+    class Mothership : SKSpriteNode
     {
         Team team;
 
@@ -126,13 +126,6 @@ namespace CommandersWar.Game
             }
         }
 
-        public enum Team
-        {
-            red,
-            green,
-            blue
-        }
-
         internal void update(Mothership enemyMothership = null, IEnumerable<Spaceship> enemySpaceships = null)
         {
             foreach (Spaceship spaceship in spaceships)
@@ -148,12 +141,23 @@ namespace CommandersWar.Game
 
         internal void die()
         {
-            
+
         }
 
         internal SKAction explosionAction()
         {
             return new SKAction(0);
+        }
+
+        internal void endBattle()
+        {
+        }
+
+        public enum Team
+        {
+            red,
+            green,
+            blue
         }
     }
 }

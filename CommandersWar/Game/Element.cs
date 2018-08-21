@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class Element
+    class Element
     {
         internal static float damageMultiplier = 1.5f;
             

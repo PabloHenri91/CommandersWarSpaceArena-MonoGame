@@ -13,17 +13,14 @@ using Microsoft.Xna.Framework.Media;
 using Hydra;
 
 using CommandersWar.Game;
-using CommandersWar.Boxes;
 
-namespace CommandersWar.Scenes
+namespace CommandersWar.Boxes
 {
-    class CreditsScene : SKScene
+    class BoxBattleResult : Box
     {
-        internal override void load()
+        public BoxBattleResult(Mothership mothership, Mothership botMothership) : base("box_233x610")
         {
-            base.load();
-
-            Music.sharedInstance.play(GameMusic.MusicType.battle);
+            var playerData = MemoryCard.current.playerData;
         }
     }
 }

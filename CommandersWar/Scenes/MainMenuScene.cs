@@ -18,7 +18,7 @@ using CommandersWar.Game;
 
 namespace CommandersWar.Scenes
 {
-    public class MainMenuScene : SKScene
+    class MainMenuScene : SKScene
     {
         State state = State.mainMenu;
         State nextState = State.mainMenu;

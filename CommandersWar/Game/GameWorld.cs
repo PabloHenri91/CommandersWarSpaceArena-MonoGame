@@ -14,7 +14,7 @@ using CommandersWar.Game;
 
 namespace Hydra
 {
-    public class GameWorld : SKNode
+    class GameWorld : SKNode
     {
         Stars stars;
 

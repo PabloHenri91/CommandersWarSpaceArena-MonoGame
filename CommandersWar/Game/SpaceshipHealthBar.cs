@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class SpaceshipHealthBar : SKSpriteNode
+    class SpaceshipHealthBar : SKSpriteNode
     {
         internal Vector2 positionOffset;
 

@@ -2,13 +2,13 @@
 
 namespace Hydra
 {
-    public enum FontName { 
+    enum FontName { 
         Default, 
         SpriteFont,
         kenpixel
     }
 
-    public enum FontSize {
+    enum FontSize {
         Default,
         size8 = 8,
         size16 = 16,

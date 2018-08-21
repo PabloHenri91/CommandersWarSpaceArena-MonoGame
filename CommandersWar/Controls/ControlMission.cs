@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Controls
 {
-    public class ControlMission:Control
+    class ControlMission:Control
     {
         public ControlMission(float x = 71,
                               float y = 507,

@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Game
 {
-    public class Mission
+    class Mission
     {
         internal int level;
         internal IEnumerable<Spaceship.Rarity> rarities;

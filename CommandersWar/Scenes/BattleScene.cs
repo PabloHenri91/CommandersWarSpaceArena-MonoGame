@@ -19,7 +19,7 @@ using FarseerPhysics.Dynamics;
 
 namespace CommandersWar.Scenes
 {
-    public class BattleScene : SKScene
+    class BattleScene : SKScene
     {
         State state = State.loading;
         State nextState = State.loading;
@@ -28,6 +28,7 @@ namespace CommandersWar.Scenes
         Mothership botMothership;
 
         float battleBeginTime;
+        float battleEndTime;
         float maxBattleDuration = 60.0f * 3.0f;
 
         float lastBotUpdate;
@@ -87,8 +88,13 @@ namespace CommandersWar.Scenes
             {
                 switch (state)
                 {
+                    case State.loading:
+                        break;
                     case State.battle:
                         updateBattle();
+                        break;
+                    case State.battleEndInterval:
+                        updateBattleEndInterval();
                         break;
                     default:
                         updateDefault();
@@ -103,8 +109,17 @@ namespace CommandersWar.Scenes
                     case State.battle:
                         loadBattle();
                         break;
+                    case State.battleEnd:
+                        loadBattleEnd();
+                        break;
+                    case State.showBattleResult:
+                        loadShowBattleResult();
+                        break;
                     case State.mainMenu:
                         presentScene(new MainMenuScene());
+                        break;
+                    case State.credits:
+                        presentScene(new CreditsScene());
                         break;
                 }
             }
@@ -116,6 +131,20 @@ namespace CommandersWar.Scenes
             {
                 battleBeginTime = currentTime;
             }
+        }
+
+        void loadBattleEnd()
+        {
+            mothership.endBattle();
+            botMothership.endBattle();
+            battleEndTime = currentTime;
+            nextState = State.battleEndInterval;
+        }
+
+        void loadShowBattleResult()
+        {
+            // TODO:
+            var boxBattleResult = new BoxBattleResult(mothership, botMothership);
         }
 
         void updateBattle()
@@ -282,6 +311,17 @@ namespace CommandersWar.Scenes
                         }
                     }
                 }
+            }
+        }
+
+        void updateBattleEndInterval()
+        {
+            mothership.update();
+            botMothership.update();
+
+            if (currentTime - battleBeginTime > 3)
+            {
+                nextState = State.showBattleResult;
             }
         }
 

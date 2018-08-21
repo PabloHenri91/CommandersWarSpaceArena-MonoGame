@@ -14,7 +14,7 @@ using Hydra;
 
 namespace CommandersWar.Controls
 {
-    public class ControlPoints : Control
+    class ControlPoints : Control
     {
         internal static ControlPoints current;
 

@@ -16,7 +16,7 @@ using Realms;
 
 namespace Hydra
 {
-    public class PlayerData : RealmObject
+    class PlayerData : RealmObject
     {
         public int botLevel { get; set; }
         public string deviceName { get; set; }
@@ -41,7 +41,7 @@ namespace Hydra
         }
     }
 
-    public class MothershipData : RealmObject
+    class MothershipData : RealmObject
     {
         [Backlink(nameof(MothershipSlotData.parentMothership))]
         public IQueryable<MothershipSlotData> slots { get; }
@@ -52,7 +52,7 @@ namespace Hydra
         }
     }
 
-    public class MothershipSlotData : RealmObject
+    class MothershipSlotData : RealmObject
     {
         public int index { get; set; }
 
@@ -60,7 +60,7 @@ namespace Hydra
         public SpaceshipData spaceship { get; set; }
     }
 
-    public class SpaceshipData : RealmObject
+    class SpaceshipData : RealmObject
     {
         public int baseDamage { get; set; }
         public int baseLife { get; set; }
@@ -77,10 +77,10 @@ namespace Hydra
         public PlayerData parentPlayer { get; set; }
     }
 
-    public static class MemoryCardExtension
+    static class MemoryCardExtension
     {
 
-        public static PlayerData newPlayerData(this MemoryCard memoryCard)
+        internal static PlayerData newPlayerData(this MemoryCard memoryCard)
         {
             PlayerData playerData = memoryCard.insert<PlayerData>();
 
@@ -120,13 +120,13 @@ namespace Hydra
             return playerData;
         }
 
-        public static MothershipData newMothershipData(this MemoryCard memoryCard)
+        internal static MothershipData newMothershipData(this MemoryCard memoryCard)
         {
             MothershipData mothershipData = memoryCard.insert<MothershipData>();
             return mothershipData;
         }
 
-        public static MothershipSlotData newMothershipSlotData(this MemoryCard memoryCard)
+        internal static MothershipSlotData newMothershipSlotData(this MemoryCard memoryCard)
         {
             MothershipSlotData mothershipSlotData = memoryCard.insert<MothershipSlotData>();
             return mothershipSlotData;
