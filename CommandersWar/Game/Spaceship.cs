@@ -12,6 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 using Hydra;
 
+using FarseerPhysics.Collision.Shapes;
+using FarseerPhysics.Dynamics;
+
 namespace CommandersWar.Game
 {
     class Spaceship : SKSpriteNode
@@ -32,6 +35,9 @@ namespace CommandersWar.Game
         internal int maxHealth;
         int speedAtribute;
         internal int weaponRange;
+
+        float maxVelocitySquared;
+        float force;
 
         int level;
         int battleStartLevel;
@@ -100,55 +106,113 @@ namespace CommandersWar.Game
                  loadPhysics);
         }
 
-        void load(int level,
-                  int baseDamage,
-                  int baseLife,
-                  int baseSpeed,
-                  int baseRange,
-                  int skinIndex,
-                  Color color,
-                  bool loadPhysics)
+        void load(int someLevel,
+                  int someBaseDamage,
+                  int someBaseLife,
+                  int someBaseSpeed,
+                  int someBaseRange,
+                  int someSkinIndex,
+                  Color someColor,
+                  bool forceLoadPhysics)
         {
 
 
-            this.level = level;
-            battleStartLevel = level;
+            level = someLevel;
+            battleStartLevel = someLevel;
 
-            this.skinIndex = skinIndex;
+            skinIndex = someSkinIndex;
 
             texture2D = SKScene.current.Texture2D(skins[skinIndex]);
             size = texture2D.Bounds.Size.ToVector2();
             setScaleToFit(Vector2.One * diameter);
 
-            element = Element.types[elementFor(color)];
+            element = Element.types[elementFor(someColor)];
 
-            this.color = color;
+            color = someColor;
             blendState = BlendState.Additive;
 
-            this.baseDamage = baseDamage;
-            this.baseLife = baseLife;
-            this.baseSpeed = baseSpeed;
-            this.baseRange = baseRange;
+            baseDamage = someBaseDamage;
+            baseLife = someBaseLife;
+            baseSpeed = someBaseSpeed;
+            baseRange = someBaseRange;
 
             updateAttributes();
 
             health = maxHealth;
 
-            if (loadPhysics)
+            if (forceLoadPhysics)
             {
-                this.loadPhysics();
+                loadPhysics();
             }
         }
 
         void loadPhysics()
         {
+            physicsBody = new SKPhysicsBody(size, ShapeType.Circle);
 
+            physicsBody.Mass = 0.0455111116170883f;
+            physicsBody.LinearDamping = 2.0f;
+            physicsBody.AngularDamping = 5.0f;
+
+            physicsBody.Restitution = 0.9f;
+
+            physicsBody.BodyType = BodyType.Static;
+
+            maxVelocitySquared = GameMath.spaceshipMaxVelocitySquared(speedAtribute);
+            force = maxVelocitySquared / 240.0f;
         }
 
         internal void update(Mothership enemyMothership = null, IEnumerable<Spaceship> enemySpaceships = null, List<Spaceship> allySpaceships = null)
         {
-            enemySpaceships = enemySpaceships ?? new List<Spaceship>();
-            allySpaceships = allySpaceships ?? new List<Spaceship>();
+            //enemySpaceships = enemySpaceships ?? new List<Spaceship>();
+            //allySpaceships = allySpaceships ?? new List<Spaceship>();
+
+            if (health > 0)
+            {
+                if (destination != null)
+                {
+                    if (position.distanceTo(destination.Value) <= diameter / 2.0f)
+                    {
+                        if (destination == startingPosition)
+                        {
+                            resetToStartingPosition();
+                        }
+                        destination = null;
+                        fadeSetDestinationEffect();
+                    }
+                    else
+                    {
+                        rotateTo(destination.Value);
+                        applyForce();
+                    }
+                }
+            }
+            else
+            {
+
+            }
+
+            updateHealthBarPosition();
+        }
+
+        void resetToStartingPosition()
+        {
+
+        }
+
+        void fadeSetDestinationEffect()
+        {
+
+        }
+
+        void rotateTo(Vector2 destination)
+        {
+
+        }
+
+        void applyForce()
+        {
+            
         }
 
         void updateAttributes()

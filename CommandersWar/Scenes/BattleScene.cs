@@ -77,6 +77,20 @@ namespace CommandersWar.Scenes
             mothership.updateMaxHealth(botMothership.spaceships);
             botMothership.updateMaxHealth(mothership.spaceships);
 
+            //
+
+            foreach (Spaceship spaceship in mothership.spaceships)
+            {
+                spaceship.physicsBody.IgnoreCollisionWith(mothership.physicsBody);
+            }
+
+            foreach (Spaceship spaceship in botMothership.spaceships)
+            {
+                spaceship.physicsBody.IgnoreCollisionWith(botMothership.physicsBody);
+            }
+
+            //
+
             nextState = State.battle;
         }
 
@@ -116,7 +130,7 @@ namespace CommandersWar.Scenes
                         loadShowBattleResult();
                         break;
                     case State.mainMenu:
-                        presentScene(new MainMenuScene());
+                        loadMainMenu();
                         break;
                     case State.credits:
                         presentScene(new CreditsScene());
@@ -145,6 +159,10 @@ namespace CommandersWar.Scenes
         {
             // TODO:
             var boxBattleResult = new BoxBattleResult(mothership, botMothership);
+        }
+
+        void loadMainMenu() {
+            presentScene(new MainMenuScene());
         }
 
         void updateBattle()
@@ -268,8 +286,8 @@ namespace CommandersWar.Scenes
                         {
                             if (botSpaceship.physicsBody != null)
                             {
-                                SKPhysicsBody physicsBody = botSpaceship.physicsBody;
-                                if (physicsBody.BodyType == BodyType.Dynamic || botSpaceship.health == botSpaceship.maxHealth)
+                                SKPhysicsBody botSpaceshipPhysicsBody = botSpaceship.physicsBody;
+                                if (botSpaceshipPhysicsBody.BodyType == BodyType.Dynamic || botSpaceship.health == botSpaceship.maxHealth)
                                 {
                                     if (botSpaceship.health < botSpaceship.maxHealth)
                                     {
