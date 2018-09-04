@@ -52,6 +52,8 @@ namespace CommandersWar.Game
 
         internal SKNode targetNode;
 
+        internal bool retreating;
+
         public Spaceship(SpaceshipData spaceshipData,
                          bool loadPhysics = false,
                          Mothership.Team team = Mothership.Team.green) : base("")
@@ -223,6 +225,26 @@ namespace CommandersWar.Game
             weaponRange = GameMath.range(level, baseRange);
         }
 
+        internal void touchUp(Touch touch)
+        {
+
+        }
+
+        internal void setTarget(Spaceship spaceship)
+        {
+
+        }
+
+        internal void setTarget(Mothership mothership)
+        {
+
+        }
+
+        internal void retreat()
+        {
+
+        }
+
         internal static string[] skins = {
             "spaceship00",
             "spaceship01",
@@ -352,21 +374,6 @@ namespace CommandersWar.Game
             }
 
             return Element.Type.darkness;
-        }
-
-        internal void setTarget(Spaceship spaceship)
-        {
-
-        }
-
-        internal void setTarget(Mothership mothership)
-        {
-
-        }
-
-        internal void retreat()
-        {
-
         }
 
         internal static float diameter = 55.0f;

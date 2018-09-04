@@ -349,6 +349,108 @@ namespace CommandersWar.Scenes
             botMothership.update();
         }
 
+
+        internal override void touchDown(Touch touch)
+        {
+            base.touchDown(touch);
+
+            switch (state)
+            {
+                case State.battle:
+                    touchDownBattle(touch);
+                    break;
+            }
+        }
+
+        void touchDownBattle(Touch touch) {
+
+            if (botMothership.parent != null)
+            {
+                if (botMothership.contains(touch.locationIn(botMothership.parent)))
+                {
+                    mothership.selectedSpaceship?.setTarget(botMothership);
+                    return;
+                }
+            }
+
+            Spaceship nearestSpaceship = this.nearestSpaceship(new[] { mothership.spaceships, botMothership.spaceships }, touch);
+
+            if (nearestSpaceship != null)
+            {
+                switch (nearestSpaceship.team)
+                {
+                    case Mothership.Team.red:
+                        mothership.selectedSpaceship?.setTarget(nearestSpaceship);
+                        break;
+                    case Mothership.Team.green:
+                        break;
+                    case Mothership.Team.blue:
+                        if ((nearestSpaceship.position - nearestSpaceship.startingPosition).LengthSquared() > 4.0f)
+                        {
+                            nearestSpaceship.touchUp(touch);
+                        }
+                        else
+                        {
+                            nearestSpaceship.physicsBody.BodyType = BodyType.Dynamic;
+                            nearestSpaceship.retreating = false;
+                        }
+                        break;
+                }
+            }
+        }
+
+        Spaceship nearestSpaceship(IEnumerable<Spaceship>[] lists, Touch touch)
+        {
+            var spaceshipsAtPoint = new List<Spaceship>();
+
+            foreach (List<Spaceship> list in lists)
+            {
+                foreach (Spaceship spaceship in list)
+                {
+                    if (spaceship.parent != null && spaceship.health > 0)
+                    {
+                        if (spaceship.contains(touch.locationIn(spaceship.parent)))
+                        {
+                            spaceshipsAtPoint.Add(spaceship);
+                        }
+                    }
+                }
+            }
+
+            Spaceship nearestSpaceship = null;
+
+            foreach (Spaceship spaceship in spaceshipsAtPoint)
+            {
+                if (spaceship.parent != null)
+                {
+                    if (nearestSpaceship != null)
+                    {
+                        var touchPosition = touch.locationIn(spaceship.parent);
+                        if (touchPosition.distanceTo(spaceship.position) < touchPosition.distanceTo(nearestSpaceship.position))
+                        {
+                            nearestSpaceship = spaceship;
+                        }
+                    }
+                    else
+                    {
+                        nearestSpaceship = spaceship;
+                    }
+                }
+            }
+
+            return nearestSpaceship;
+        }
+
+        internal override void touchMoved(Touch touch)
+        {
+            base.touchMoved(touch);
+        }
+
+        internal override void touchUp(Touch touch)
+        {
+            base.touchUp(touch);
+        }
+
         enum State
         {
             loading,
