@@ -28,8 +28,6 @@ namespace CommandersWar.Game
         internal int maxHealth = 5800; // ???
         internal int health = 5800; // ???
 
-        internal Spaceship selectedSpaceship;
-
         public Mothership(Team team) : base("mothership")
         {
             blendState = BlendState.Additive;
@@ -105,6 +103,12 @@ namespace CommandersWar.Game
             spaceship.zRotation = zRotation;
             gameWorld.addChild(spaceship);
 
+            spaceship.loadWeaponRangeShapeNode(gameWorld);
+            spaceship.loadHealthBar(gameWorld);
+            spaceship.loadLabelRespawn(gameWorld);
+            spaceship.loadJetEffect(gameWorld);
+            spaceship.loadSetDestinationEffect(gameWorld);
+
             spaceship.startingPosition = spaceship.position;
 
             spaceship.loadHealthBar();
@@ -153,6 +157,7 @@ namespace CommandersWar.Game
 
         internal void endBattle()
         {
+
         }
 
         public enum Team

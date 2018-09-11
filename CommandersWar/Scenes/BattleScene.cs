@@ -392,7 +392,7 @@ namespace CommandersWar.Scenes
             {
                 if (botMothership.contains(touch.locationIn(botMothership.parent)))
                 {
-                    mothership.selectedSpaceship?.setTarget(botMothership);
+                    Spaceship.selectedSpaceship?.setTarget(botMothership);
                     return;
                 }
             }
@@ -404,7 +404,7 @@ namespace CommandersWar.Scenes
                 switch (nearestSpaceship.team)
                 {
                     case Mothership.Team.red:
-                        mothership.selectedSpaceship?.setTarget(nearestSpaceship);
+                        Spaceship.selectedSpaceship?.setTarget(nearestSpaceship);
                         break;
                     case Mothership.Team.green:
                         break;
@@ -415,7 +415,7 @@ namespace CommandersWar.Scenes
                 return;
             }
 
-            mothership.selectedSpaceship?.touchUp(touch);
+            Spaceship.selectedSpaceship?.touchUp(touch);
         }
 
         void touchMovedBattle(Touch touch)
@@ -436,7 +436,7 @@ namespace CommandersWar.Scenes
                 }
             }
 
-            mothership.selectedSpaceship?.touchUp(touch);
+            Spaceship.selectedSpaceship?.touchUp(touch);
         }
 
         Spaceship getNearestSpaceship(IEnumerable<Spaceship>[] lists, Touch touch)

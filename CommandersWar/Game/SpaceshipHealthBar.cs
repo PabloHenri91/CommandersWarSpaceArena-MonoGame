@@ -32,12 +32,12 @@ namespace CommandersWar.Game
             {
                 case Mothership.Team.red:
                     teamColor = GameColors.redTeam;
-                    positionOffset = new Vector2(0.0f, -Spaceship.diameter / 2.0f - 8.0f);
+                    positionOffset = new Vector2(0.0f, -Spaceship.radius - 8.0f);
                     break;
                 case Mothership.Team.green:
                 case Mothership.Team.blue:
                     teamColor = GameColors.blueTeam;
-                    positionOffset = new Vector2(0.0f, Spaceship.diameter / 2.0f + 8.0f);
+                    positionOffset = new Vector2(0.0f, Spaceship.radius + 8.0f);
                     break;
             }
 

@@ -54,9 +54,9 @@ namespace CommandersWar.Game
 
         internal bool retreating;
 
-        public Spaceship(SpaceshipData spaceshipData,
-                         bool loadPhysics = false,
-                         Mothership.Team team = Mothership.Team.green) : base("")
+        SKShapeNode weaponRangeShapeNode;
+
+        public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
         {
             this.team = team;
 
@@ -82,17 +82,31 @@ namespace CommandersWar.Game
             updateHealthBarPosition();
         }
 
+        void updateWeaponRangeShapeNode() {
+            if (weaponRangeShapeNode == null) { return; }
+
+            if (health <= 0)
+            {
+                weaponRangeShapeNode.alpha = 0.0f;
+            }
+            else
+            {
+                weaponRangeShapeNode.position = position;
+
+                if (this != selectedSpaceship && weaponRangeShapeNode.alpha > 0.0f)
+                {
+                    weaponRangeShapeNode.alpha -= 0.06666666667f;
+                }
+            }
+        }
+
         internal void updateHealthBarPosition()
         {
             if (healthBar == null) { return; }
             healthBar.position = position + healthBar.positionOffset;
         }
 
-        public Spaceship(int level,
-                         Rarity rarity,
-                         bool loadPhysics = false,
-                         Mothership.Team team = Mothership.Team.green,
-                         Color? color = null) : base("")
+        public Spaceship(int level, Rarity rarity, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green, Color? color = null) : base("")
         {
             this.team = team;
 
@@ -108,17 +122,8 @@ namespace CommandersWar.Game
                  loadPhysics);
         }
 
-        void load(int someLevel,
-                  int someBaseDamage,
-                  int someBaseLife,
-                  int someBaseSpeed,
-                  int someBaseRange,
-                  int someSkinIndex,
-                  Color someColor,
-                  bool forceLoadPhysics)
+        void load(int someLevel, int someBaseDamage, int someBaseLife, int someBaseSpeed, int someBaseRange, int someSkinIndex, Color someColor, bool forceLoadPhysics)
         {
-
-
             level = someLevel;
             battleStartLevel = someLevel;
 
@@ -126,7 +131,7 @@ namespace CommandersWar.Game
 
             texture2D = SKScene.current.Texture2D(skins[skinIndex]);
             size = texture2D.Bounds.Size.ToVector2();
-            setScaleToFit(Vector2.One * diameter);
+            setScaleToFit(Vector2.One * radius * 2.0f);
 
             element = Element.types[elementFor(someColor)];
 
@@ -164,6 +169,36 @@ namespace CommandersWar.Game
             force = maxVelocitySquared / 240.0f;
         }
 
+        internal void loadSetDestinationEffect(GameWorld gameWorld)
+        {
+
+        }
+
+        internal void loadJetEffect(GameWorld gameWorld)
+        {
+
+        }
+
+        internal void loadLabelRespawn(GameWorld gameWorld)
+        {
+
+        }
+
+        internal void loadHealthBar(GameWorld gameWorld)
+        {
+
+        }
+
+        internal void loadWeaponRangeShapeNode(GameWorld gameWorld)
+        {
+            SKShapeNode shapeNode = new SKShapeNode(weaponRange);
+            shapeNode.position = position;
+            shapeNode.alpha = 0.0f;
+            gameWorld.addChild(shapeNode);
+
+            weaponRangeShapeNode = shapeNode;
+        }
+
         internal void update(Mothership enemyMothership = null, IEnumerable<Spaceship> enemySpaceships = null, List<Spaceship> allySpaceships = null)
         {
             //enemySpaceships = enemySpaceships ?? new List<Spaceship>();
@@ -173,7 +208,7 @@ namespace CommandersWar.Game
             {
                 if (destination != null)
                 {
-                    if (position.distanceTo(destination.Value) <= diameter / 2.0f)
+                    if (position.distanceTo(destination.Value) <= radius)
                     {
                         if (destination == startingPosition)
                         {
@@ -194,11 +229,16 @@ namespace CommandersWar.Game
 
             }
 
+            updateWeaponRangeShapeNode();
             updateHealthBarPosition();
         }
 
         void resetToStartingPosition()
         {
+
+        }
+
+        void setDestinationEffect() {
 
         }
 
@@ -225,9 +265,48 @@ namespace CommandersWar.Game
             weaponRange = GameMath.range(level, baseRange);
         }
 
+        void showWeaponRangeShapeNode()
+        {
+            weaponRangeShapeNode.alpha = 1.0f;
+        }
+
         internal void touchUp(Touch touch)
         {
+            if (parent == null)
+            {
+                return;
+            }
 
+            Vector2 point = touch.locationIn(parent);
+
+            if (this == selectedSpaceship)
+            {
+                targetNode = null;
+
+                if (contains(point))
+                {
+                    if (destination != null)
+                    {
+                        fadeSetDestinationEffect();
+                    }
+                }
+                else
+                {
+                    physicsBody.BodyType = BodyType.Dynamic;
+                    destination = point;
+                    setDestinationEffect();
+                }
+            }
+            else if (contains(point))
+            {
+                setSelected(this);
+            }
+
+        }
+
+        internal override bool contains(Vector2 somePosition)
+        {
+            return position.distanceTo(somePosition) <= radius;
         }
 
         internal void setTarget(Spaceship spaceship)
@@ -376,7 +455,15 @@ namespace CommandersWar.Game
             return Element.Type.darkness;
         }
 
-        internal static float diameter = 55.0f;
+        static void setSelected(Spaceship spaceship)
+        {
+            selectedSpaceship = spaceship;
+            spaceship?.showWeaponRangeShapeNode();
+        }
+
+        internal static float radius = 55.0f / 2.0f;
+
+        internal static Spaceship selectedSpaceship;
 
         public enum Rarity
         {
