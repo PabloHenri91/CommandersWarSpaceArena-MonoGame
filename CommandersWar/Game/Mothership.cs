@@ -157,7 +157,13 @@ namespace CommandersWar.Game
 
         internal void endBattle()
         {
-
+            foreach (Spaceship spaceship in spaceships)
+            {
+                spaceship.destination = null;
+                spaceship.fadeSetDestinationEffect();
+                spaceship.targetNode = null;
+                spaceship.canRespawn = false;
+            }
         }
 
         public enum Team

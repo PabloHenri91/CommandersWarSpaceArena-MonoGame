@@ -14,6 +14,7 @@ using Hydra;
 
 using FarseerPhysics.Collision.Shapes;
 using FarseerPhysics.Dynamics;
+using Hydra.Scenes;
 
 namespace CommandersWar.Game
 {
@@ -53,8 +54,18 @@ namespace CommandersWar.Game
         internal SKNode targetNode;
 
         internal bool retreating;
+        internal bool canRespawn;
 
         SKShapeNode weaponRangeShapeNode;
+        SKSpriteNode destinationEffectSpriteNode;
+
+        int emitterNodeParticleBirthRate;
+        float lastSecond;
+        float deathTime;
+        int deaths;
+        Label labelRespawn;
+        float totalRotationToDestination;
+        int defaultEmitterNodeParticleBirthRate;
 
         public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
         {
@@ -82,7 +93,8 @@ namespace CommandersWar.Game
             updateHealthBarPosition();
         }
 
-        void updateWeaponRangeShapeNode() {
+        void updateWeaponRangeShapeNode()
+        {
             if (weaponRangeShapeNode == null) { return; }
 
             if (health <= 0)
@@ -171,7 +183,38 @@ namespace CommandersWar.Game
 
         internal void loadSetDestinationEffect(GameWorld gameWorld)
         {
+            var spriteNode = new SKSpriteNode("Define Location");
+            spriteNode.scale = Vector2.One * 0.75f;
+            spriteNode.color = color;
+            spriteNode.blendState = BlendState.Additive;
+            spriteNode.alpha = 0.0f;
+            gameWorld.addChild(spriteNode);
+            destinationEffectSpriteNode = spriteNode;
+        }
 
+        void setDestinationEffect()
+        {
+            if (team != Mothership.Team.blue ||
+                destination == null ||
+                destinationEffectSpriteNode == null)
+            {
+                return;
+            }
+
+            destinationEffectSpriteNode.removeAllActions();
+            destinationEffectSpriteNode.alpha = 1.0f;
+            destinationEffectSpriteNode.position = destination.Value;
+        }
+
+        internal void fadeSetDestinationEffect()
+        {
+            if (team != Mothership.Team.blue ||
+                destinationEffectSpriteNode == null)
+            {
+                return;
+            }
+
+            destinationEffectSpriteNode.run(SKAction.fadeAlphaTo(0.0f, 0.5f));
         }
 
         internal void loadJetEffect(GameWorld gameWorld)
@@ -201,8 +244,7 @@ namespace CommandersWar.Game
 
         internal void update(Mothership enemyMothership = null, IEnumerable<Spaceship> enemySpaceships = null, List<Spaceship> allySpaceships = null)
         {
-            //enemySpaceships = enemySpaceships ?? new List<Spaceship>();
-            //allySpaceships = allySpaceships ?? new List<Spaceship>();
+            emitterNodeParticleBirthRate = 0;
 
             if (health > 0)
             {
@@ -210,9 +252,13 @@ namespace CommandersWar.Game
                 {
                     if (position.distanceTo(destination.Value) <= radius)
                     {
-                        if (destination == startingPosition)
+                        if (destination.Value == startingPosition)
                         {
                             resetToStartingPosition();
+                        }
+                        else
+                        {
+                            updateBitMasks();
                         }
                         destination = null;
                         fadeSetDestinationEffect();
@@ -223,26 +269,162 @@ namespace CommandersWar.Game
                         applyForce();
                     }
                 }
+                else
+                {
+                    if (physicsBody != null)
+                    {
+                        if (physicsBody.BodyType != BodyType.Dynamic)
+                        {
+                            if ((position - startingPosition).LengthSquared() < 4.0f)
+                            {
+                                heal();
+                            }
+                            if (physicsBody.BodyType == BodyType.Dynamic)
+                            {
+                                rotateTo(new Vector2(position.X, 0));
+                                applyForce();
+                            }
+                        }
+                        else
+                        {
+
+                            if (targetNode != null)
+                            {
+
+                                if (targetNode is Spaceship)
+                                {
+                                    Spaceship targetSpaceship = (Spaceship)targetNode;
+                                    if (targetSpaceship.health <= 0)
+                                    {
+                                        targetNode = null;
+                                    }
+                                    else
+                                    {
+                                        if ((targetSpaceship.position - targetSpaceship.startingPosition).LengthSquared() < 4)
+                                        {
+                                            targetNode = null;
+                                        }
+                                        else
+                                        {
+                                            rotateTo(targetSpaceship.position);
+
+                                            if (position.distanceTo(targetSpaceship.position) > weaponRange + radius)
+                                            {
+                                                applyForce();
+                                            }
+                                            else
+                                            {
+                                                tryToShoot();
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (targetNode is Mothership)
+                                {
+                                    Mothership targetMothership = (Mothership)targetNode;
+                                    if (targetMothership.health <= 0)
+                                    {
+                                        targetNode = null;
+                                    }
+                                    else
+                                    {
+                                        var point = new Vector2(position.X, targetMothership.position.Y);
+                                        rotateTo(point);
+
+                                        if (position.distanceTo(point) > weaponRange + 89 / 2)
+                                        {
+                                            applyForce();
+                                        }
+                                        else
+                                        {
+                                            tryToShoot();
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Spaceship someTargetNode = nearestSpaceshipInRange(enemySpaceships);
+                                if (someTargetNode != null)
+                                {
+                                    setTarget(someTargetNode);
+                                }
+                                else
+                                {
+                                    if (enemyMothership != null)
+                                    {
+                                        if (isMothershipInRange(enemyMothership))
+                                        {
+                                            setTarget(enemyMothership);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             else
             {
+                if (canRespawn)
+                {
+                    if (SKScene.currentTime - lastSecond > 1.0)
+                    {
+                        lastSecond = SKScene.currentTime;
 
+                        if (SKScene.currentTime - deathTime > (deaths * (rarity.GetHashCode() + 1)))
+                        {
+                            respawn();
+                        }
+                        else
+                        {
+                            if (labelRespawn != null)
+                            {
+                                Label label = labelRespawn;
+                                int text = (deaths * (rarity.GetHashCode() + 1)) - (int)(SKScene.currentTime - deathTime);
+                                label.text = $"{text}";
+                            }
+                        }
+                    }
+                }
             }
 
             updateWeaponRangeShapeNode();
             updateHealthBarPosition();
         }
 
-        void resetToStartingPosition()
+        Spaceship nearestSpaceshipInRange(IEnumerable<Spaceship> enemySpaceships)
+        {
+            return null;
+        }
+
+        void respawn()
         {
 
         }
 
-        void setDestinationEffect() {
+        bool isMothershipInRange(Mothership enemyMothership)
+        {
+            return false;
+        }
+
+        void tryToShoot()
+        {
 
         }
 
-        void fadeSetDestinationEffect()
+        void heal()
+        {
+
+        }
+
+        void updateBitMasks()
+        {
+
+        }
+
+        void resetToStartingPosition()
         {
 
         }
@@ -254,7 +436,23 @@ namespace CommandersWar.Game
 
         void applyForce()
         {
-            
+            var absTotalRotationToDestination = Math.Abs(totalRotationToDestination * 2.0f);
+            var multiplier = Math.Max(1 - absTotalRotationToDestination, 0);
+
+
+            if (multiplier > 0.0f)
+            {
+                if (physicsBody != null)
+                {
+                    var velocitySquared = (physicsBody.LinearVelocity.X * physicsBody.LinearVelocity.X) + (physicsBody.LinearVelocity.X * physicsBody.LinearVelocity.Y);
+
+                    if (velocitySquared < maxVelocitySquared)
+                    {
+                        physicsBody.ApplyForce(new Vector2((float)(Math.Sin(zRotation) * force * multiplier), (float)(-Math.Cos(zRotation) * force * multiplier)));
+                    }
+                    emitterNodeParticleBirthRate = defaultEmitterNodeParticleBirthRate;
+                }
+            }
         }
 
         void updateAttributes()
@@ -311,12 +509,12 @@ namespace CommandersWar.Game
 
         internal void setTarget(Spaceship spaceship)
         {
-
+            fadeSetDestinationEffect();
         }
 
         internal void setTarget(Mothership mothership)
         {
-
+            fadeSetDestinationEffect();
         }
 
         internal void retreat()
