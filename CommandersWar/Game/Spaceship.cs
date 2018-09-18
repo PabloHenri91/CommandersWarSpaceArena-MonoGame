@@ -66,6 +66,9 @@ namespace CommandersWar.Game
         Label labelRespawn;
         float totalRotationToDestination;
         int defaultEmitterNodeParticleBirthRate;
+        float rotationToDestination;
+        float maxAngularVelocity = 3.0f;
+        float angularImpulse = 0.005f;
 
         public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
         {
@@ -83,14 +86,6 @@ namespace CommandersWar.Game
                  spaceshipData.skin,
                  new Color(spaceshipData.colorRed, spaceshipData.colorGreen, spaceshipData.colorBlue),
                  loadPhysics);
-        }
-
-        internal void loadHealthBar()
-        {
-            healthBar = new SpaceshipHealthBar(level, health, team, rarity);
-            healthBar.position = position;
-            parent.addChild(healthBar);
-            updateHealthBarPosition();
         }
 
         void updateWeaponRangeShapeNode()
@@ -217,19 +212,22 @@ namespace CommandersWar.Game
             destinationEffectSpriteNode.run(SKAction.fadeAlphaTo(0.0f, 0.5f));
         }
 
-        internal void loadJetEffect(GameWorld gameWorld)
+        internal void loadJetEffect(SKNode gameWorld)
         {
 
         }
 
-        internal void loadLabelRespawn(GameWorld gameWorld)
+        internal void loadLabelRespawn(SKNode gameWorld)
         {
 
         }
 
-        internal void loadHealthBar(GameWorld gameWorld)
+        internal void loadHealthBar()
         {
-
+            healthBar = new SpaceshipHealthBar(level, health, team, rarity);
+            healthBar.position = position;
+            parent.addChild(healthBar);
+            updateHealthBarPosition();
         }
 
         internal void loadWeaponRangeShapeNode(GameWorld gameWorld)
@@ -429,16 +427,32 @@ namespace CommandersWar.Game
 
         }
 
-        void rotateTo(Vector2 destination)
+        void rotateTo(Vector2 point)
         {
+            if (physicsBody != null)
+            {
+                float dx = point.X - position.X;
+                float dy = point.Y - position.Y;
 
+                rotationToDestination = -(float)Math.Atan2(dx, dy) + (float)Math.PI;
+
+
+                if (Math.Abs(physicsBody.AngularVelocity) < maxAngularVelocity)
+                {
+                    totalRotationToDestination = rotationToDestination - zRotation;
+
+                    while (totalRotationToDestination < -Math.PI) { totalRotationToDestination += (float)Math.PI * 2.0f; }
+                    while (totalRotationToDestination > Math.PI) { totalRotationToDestination -= (float)Math.PI * 2.0f; }
+
+                    physicsBody.ApplyAngularImpulse(totalRotationToDestination * angularImpulse);
+                }
+            }
         }
 
         void applyForce()
         {
             var absTotalRotationToDestination = Math.Abs(totalRotationToDestination * 2.0f);
             var multiplier = Math.Max(1 - absTotalRotationToDestination, 0);
-
 
             if (multiplier > 0.0f)
             {
@@ -448,7 +462,7 @@ namespace CommandersWar.Game
 
                     if (velocitySquared < maxVelocitySquared)
                     {
-                        physicsBody.ApplyForce(new Vector2((float)(Math.Sin(zRotation) * force * multiplier), (float)(-Math.Cos(zRotation) * force * multiplier)));
+                        //physicsBody.ApplyForce(new Vector2((float)(Math.Sin(zRotation) * force * multiplier), (float)(-Math.Cos(zRotation) * force * multiplier)));
                     }
                     emitterNodeParticleBirthRate = defaultEmitterNodeParticleBirthRate;
                 }

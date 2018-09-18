@@ -104,14 +104,12 @@ namespace CommandersWar.Game
             gameWorld.addChild(spaceship);
 
             spaceship.loadWeaponRangeShapeNode(gameWorld);
-            spaceship.loadHealthBar(gameWorld);
+            spaceship.loadHealthBar();
             spaceship.loadLabelRespawn(gameWorld);
             spaceship.loadJetEffect(gameWorld);
             spaceship.loadSetDestinationEffect(gameWorld);
 
             spaceship.startingPosition = spaceship.position;
-
-            spaceship.loadHealthBar();
         }
 
         internal void updateMaxHealth(List<Spaceship> spaceships)

@@ -311,7 +311,7 @@ namespace CommandersWar.Scenes
                                         else
                                         {
                                             var x = random.Next(-55 / 2, 55 / 2);
-                                            var y = random.Next(-89, 89 / 2);
+                                            var y = random.Next(89 / 2, 89);
                                             var point = botSpaceship.position + new Vector2(x, y);
                                             if (mothership.contains(point))
                                             {
