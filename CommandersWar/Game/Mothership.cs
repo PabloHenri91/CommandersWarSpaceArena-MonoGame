@@ -50,9 +50,9 @@ namespace CommandersWar.Game
             loadPhysics(size);
         }
 
-        void loadPhysics(Vector2 size)
+        void loadPhysics(Vector2 someSize)
         {
-            physicsBody = new SKPhysicsBody(size, ShapeType.Circle);
+            physicsBody = new SKPhysicsBody(someSize);
             physicsBody.BodyType = BodyType.Static;
             physicsBody.UserData = this;
         }

@@ -173,7 +173,7 @@ namespace CommandersWar.Game
             physicsBody.BodyType = BodyType.Static;
 
             maxVelocitySquared = GameMath.spaceshipMaxVelocitySquared(speedAtribute);
-            force = maxVelocitySquared / 240.0f;
+            force = maxVelocitySquared / 24000.0f;
         }
 
         internal void loadSetDestinationEffect(GameWorld gameWorld)
@@ -462,7 +462,7 @@ namespace CommandersWar.Game
 
                     if (velocitySquared < maxVelocitySquared)
                     {
-                        //physicsBody.ApplyForce(new Vector2((float)(Math.Sin(zRotation) * force * multiplier), (float)(-Math.Cos(zRotation) * force * multiplier)));
+                        physicsBody.ApplyForce(new Vector2((float)(Math.Sin(zRotation) * force * multiplier), (float)(-Math.Cos(zRotation) * force * multiplier)));
                     }
                     emitterNodeParticleBirthRate = defaultEmitterNodeParticleBirthRate;
                 }
