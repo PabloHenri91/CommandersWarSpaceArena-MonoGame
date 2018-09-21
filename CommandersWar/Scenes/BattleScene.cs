@@ -381,7 +381,7 @@ namespace CommandersWar.Scenes
             switch (state)
             {
                 case State.battle:
-                    touchDownBattle(touch);
+                    touchUpBattle(touch);
                     break;
             }
         }
@@ -415,6 +415,15 @@ namespace CommandersWar.Scenes
                 return;
             }
 
+            if (mothership.parent != null)
+            {
+                if (mothership.contains(touch.locationIn(mothership.parent)))
+                {
+                    Spaceship.selectedSpaceship?.retreat();
+                    return;
+                }
+            }
+
             Spaceship.selectedSpaceship?.touchUp(touch);
         }
 
@@ -432,6 +441,62 @@ namespace CommandersWar.Scenes
             {
                 if (botMothership.contains(touch.locationIn(botMothership.parent)))
                 {
+                    return;
+                }
+            }
+
+            Spaceship.selectedSpaceship?.touchUp(touch);
+        }
+
+        void touchUpBattle(Touch touch) {
+            if (mothership.parent != null)
+            {
+                if (botMothership.contains(touch.locationIn(botMothership.parent)))
+                {
+                    Spaceship.selectedSpaceship?.setTarget(botMothership);
+                    return;
+                }
+            }
+
+            Spaceship nearestSpaceship = getNearestSpaceship(new[] { mothership.spaceships, botMothership.spaceships }, touch);
+
+            if (nearestSpaceship != null)
+            {
+                switch (nearestSpaceship.team)
+                {
+                    case Mothership.Team.red:
+                        Spaceship.selectedSpaceship?.setTarget(nearestSpaceship);
+                        break;
+                    case Mothership.Team.green:
+                        break;
+                    case Mothership.Team.blue:
+                        if ((nearestSpaceship.position - nearestSpaceship.startingPosition).LengthSquared() > 4.0f)
+                        {
+                            nearestSpaceship.touchUp(touch);
+                        }
+                        else
+                        {
+                            nearestSpaceship.physicsBody.BodyType = BodyType.Dynamic;
+                            nearestSpaceship.retreating = false;
+                        }
+                        break;
+                }
+                return;
+            }
+
+            if (botMothership.parent != null)
+            {
+                if (botMothership.contains(touch.locationIn(botMothership.parent)))
+                {
+                    if (Spaceship.selectedSpaceship != null)
+                    {
+                        Spaceship selectedSpaceship = Spaceship.selectedSpaceship;
+                        if (selectedSpaceship.position.distanceTo(selectedSpaceship.startingPosition) > 4.0f)
+                        {
+                            selectedSpaceship.retreat();
+                            selectedSpaceship.retreating = true;
+                        }
+                    }
                     return;
                 }
             }

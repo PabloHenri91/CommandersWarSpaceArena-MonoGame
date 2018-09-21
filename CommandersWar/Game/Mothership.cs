@@ -110,6 +110,7 @@ namespace CommandersWar.Game
             spaceship.loadSetDestinationEffect(gameWorld);
 
             spaceship.startingPosition = spaceship.position;
+            spaceship.startingZRotation = spaceship.zRotation;
         }
 
         internal void updateMaxHealth(List<Spaceship> spaceships)

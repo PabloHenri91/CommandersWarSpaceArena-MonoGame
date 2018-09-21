@@ -47,6 +47,7 @@ namespace CommandersWar.Game
         internal int health = 1;
 
         internal Vector2 startingPosition;
+        internal float startingZRotation;
         internal Vector2? destination;
 
         internal SpaceshipHealthBar healthBar;
@@ -424,7 +425,11 @@ namespace CommandersWar.Game
 
         void resetToStartingPosition()
         {
-
+            physicsBody.BodyType = BodyType.Static;
+            position = startingPosition;
+            zRotation = startingZRotation;
+            physicsBody.LinearVelocity = Vector2.Zero;
+            physicsBody.AngularVelocity = 0.0f;
         }
 
         void rotateTo(Vector2 point)
@@ -524,16 +529,36 @@ namespace CommandersWar.Game
         internal void setTarget(Spaceship spaceship)
         {
             fadeSetDestinationEffect();
+            physicsBody.BodyType = BodyType.Dynamic;
+            destination = null;
+            targetNode = spaceship;
+            setTargetEffect(spaceship.position, true);
         }
 
         internal void setTarget(Mothership mothership)
         {
             fadeSetDestinationEffect();
+            physicsBody.BodyType = BodyType.Dynamic;
+            destination = null;
+            targetNode = mothership;
+            setTargetEffect(new Vector2(position.X, mothership.position.Y), false);
+        }
+
+        void setTargetEffect(Vector2 somePosition, bool move) {
+
         }
 
         internal void retreat()
         {
+            targetNode = null;
+            physicsBody.BodyType = BodyType.Dynamic;
+            destination = startingPosition;
+            setDestinationEffect();
 
+            if (this == selectedSpaceship)
+            {
+                setSelected(null);
+            }
         }
 
         internal static string[] skins = {
