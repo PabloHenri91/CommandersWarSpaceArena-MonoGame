@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 
 using CommandersWar.Game;
 
+using FarseerPhysics.Collision.Shapes;
+
 namespace Hydra
 {
     class GameWorld : SKNode
@@ -38,12 +40,16 @@ namespace Hydra
 
         void loadSoundEffect()
         {
-            
+
         }
 
         void loadPhysics()
         {
-            
+            SKPhysicsBody somePhysicsBody = new SKPhysicsBody(SKScene.defaultSize, ShapeType.Chain);
+
+            somePhysicsBody.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+
+            physicsBody = somePhysicsBody;
         }
 
         internal void updateSize()

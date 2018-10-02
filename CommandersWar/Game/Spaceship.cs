@@ -60,6 +60,7 @@ namespace CommandersWar.Game
         SKShapeNode weaponRangeShapeNode;
         SKSpriteNode destinationEffectSpriteNode;
 
+        SKEmitterNode emitterNode;
         int emitterNodeParticleBirthRate;
         float lastSecond;
         float deathTime;
@@ -215,7 +216,33 @@ namespace CommandersWar.Game
 
         internal void loadJetEffect(SKNode gameWorld)
         {
+            defaultEmitterNodeParticleBirthRate = speedAtribute * 20;
 
+            emitterNode = new SKEmitterNode();
+            emitterNode.setScaleToFit(8.0f, 8.0f);
+            emitterNode.particleLifetime = 1.0f;
+            emitterNode.particleAlpha = 1.0f;
+            emitterNode.particleAlphaSpeed = -4.0f;
+            emitterNode.particleScaleSpeed = -1.0f;
+
+            emitterNode.color = Mothership.colorFor(team);
+
+            emitterNode.blendState = BlendState.Additive;
+
+            emitterNode.particlePositionRange = new Vector2(8.0f, 8.0f);
+
+            gameWorld.addChild(emitterNode);
+        }
+
+        internal void updateJetEffect()
+        {
+            if (emitterNode == null) { return; }
+
+            emitterNode.particleBirthRate = emitterNodeParticleBirthRate / 4;
+            emitterNode.particleSpeed = emitterNodeParticleBirthRate;
+            emitterNode.particleSpeedRange = emitterNodeParticleBirthRate / 2;
+            emitterNode.position = position;
+            emitterNode.emissionAngle = (float)(zRotation - Math.PI / 2);
         }
 
         internal void loadLabelRespawn(SKNode gameWorld)
@@ -391,6 +418,8 @@ namespace CommandersWar.Game
 
             updateWeaponRangeShapeNode();
             updateHealthBarPosition();
+
+            updateJetEffect(); //TODO: move to didSimulatePhysics
         }
 
         Spaceship nearestSpaceshipInRange(IEnumerable<Spaceship> enemySpaceships)

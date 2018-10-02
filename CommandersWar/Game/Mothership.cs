@@ -171,5 +171,17 @@ namespace CommandersWar.Game
             green,
             blue
         }
+        internal static Color colorFor(Team team) {
+            switch (team)
+            {
+                case Team.red:
+                    return GameColors.redTeam;
+                case Team.green:
+                case Team.blue:
+                    return GameColors.blueTeam;
+            }
+
+            return GameColors.blueTeam;
+        }
     }
 }
