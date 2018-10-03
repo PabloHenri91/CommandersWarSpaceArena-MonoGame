@@ -242,7 +242,7 @@ namespace CommandersWar.Game
             emitterNode.particleSpeed = emitterNodeParticleBirthRate;
             emitterNode.particleSpeedRange = emitterNodeParticleBirthRate / 2;
             emitterNode.position = position;
-            emitterNode.emissionAngle = (float)(zRotation - Math.PI / 2);
+            emitterNode.emissionAngle = (float)(zRotation - Math.PI);
         }
 
         internal void loadLabelRespawn(SKNode gameWorld)
