@@ -231,12 +231,8 @@ namespace CommandersWar.Game
 
             emitterNode.particlePositionRange = new Vector2(8.0f, 8.0f);
 
-            SKEffectNode effectNode = new SKEffectNode(new Vector2(128, 128));
-            effectNode.blendState = BlendState.Additive;
 
-
-            gameWorld.addChild(effectNode);
-            effectNode.addChild(emitterNode);
+            gameWorld.addChild(emitterNode);
         }
 
         internal void updateJetEffect()
@@ -246,7 +242,7 @@ namespace CommandersWar.Game
             emitterNode.particleBirthRate = emitterNodeParticleBirthRate / 4;
             emitterNode.particleSpeed = emitterNodeParticleBirthRate;
             emitterNode.particleSpeedRange = emitterNodeParticleBirthRate / 2;
-            emitterNode.parent.position = position;
+            emitterNode.position = position;
             emitterNode.emissionAngle = (float)(zRotation - Math.PI);
         }
 
