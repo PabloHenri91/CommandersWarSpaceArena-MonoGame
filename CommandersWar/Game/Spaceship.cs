@@ -32,7 +32,7 @@ namespace CommandersWar.Game
         int baseSpeed;
         int baseRange;
 
-        int damage;
+        internal int damage;
         internal int maxHealth;
         int speedAtribute;
         internal int weaponRange;
@@ -71,6 +71,9 @@ namespace CommandersWar.Game
         float rotationToDestination;
         float maxAngularVelocity = 3.0f;
         float angularImpulse = 0.005f;
+
+        float lastShot;
+        internal bool canShoot = true;
 
         public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
         {
@@ -440,7 +443,13 @@ namespace CommandersWar.Game
 
         void tryToShoot()
         {
-
+            if (SKScene.currentTime - lastShot > 0.2 && canShoot)
+            {
+                canShoot = false;
+                lastShot = SKScene.currentTime;
+                parent.addChild(new Shot(this, element));
+                // SoundEffect shotSoundEffect
+            }
         }
 
         void heal()

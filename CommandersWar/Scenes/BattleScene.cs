@@ -139,6 +139,13 @@ namespace CommandersWar.Scenes
             }
         }
 
+        internal override void didSimulatePhysics()
+        {
+            base.didSimulatePhysics();
+
+            Shot.updateAll();
+        }
+
         void loadBattle()
         {
             if (battleBeginTime.Equals(0.0f))
