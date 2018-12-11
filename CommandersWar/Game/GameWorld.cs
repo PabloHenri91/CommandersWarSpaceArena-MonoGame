@@ -50,6 +50,8 @@ namespace Hydra
             somePhysicsBody.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
 
             physicsBody = somePhysicsBody;
+
+            physicsBody.UserData = this;
         }
 
         internal void updateSize()

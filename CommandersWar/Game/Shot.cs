@@ -22,9 +22,10 @@ namespace CommandersWar.Game
     {
         static List<Shot> list = new List<Shot>();
 
-        Spaceship shooter;
-        Element element;
-        int damage;
+        internal Spaceship shooter;
+        internal int damage;
+        internal Element element;
+
         int rangeSquared;
         Vector2 startingPosition;
         SKEmitterNode emitterNode;
@@ -70,6 +71,9 @@ namespace CommandersWar.Game
             }
         }
 
+
+
+
         void loadPhysics()
         {
             physicsBody = new SKPhysicsBody(size, ShapeType.Circle);
@@ -77,15 +81,40 @@ namespace CommandersWar.Game
             physicsBody.LinearDamping = 0;
             physicsBody.AngularDamping = 0;
 
-            float speed = 660.0f;
+            float speed = 10.0f;
 
-            physicsBody.LinearVelocity = new Vector2((float)(-Math.Sin(zRotation) * speed), (float)(Math.Cos(zRotation) * speed));
+            physicsBody.LinearVelocity = new Vector2((float)(Math.Sin(zRotation) * speed), (float)(-Math.Cos(zRotation) * speed));
 
             if (shooter.physicsBody != null)
             {
                 physicsBody.IgnoreCollisionWith(shooter.physicsBody);
                 physicsBody.LinearVelocity += shooter.physicsBody.LinearVelocity;
             }
+
+            physicsBody.OnCollision += PhysicsBody_OnCollision;
+
+            physicsBody.UserData = this;
+        }
+
+        bool PhysicsBody_OnCollision(Fixture fixtureA, Fixture fixtureB, FarseerPhysics.Dynamics.Contacts.Contact contact)
+        {
+            Shot shot = (Shot)fixtureA.Body.UserData;
+
+            if (fixtureB.Body.UserData is Spaceship)
+            {
+                Spaceship spaceship = (Spaceship)fixtureB.Body.UserData;
+                spaceship?.getHitBy(shot);
+                return false;
+            }
+
+            if (fixtureB.Body.UserData is Mothership)
+            {
+                Mothership mothership = (Mothership)fixtureB.Body.UserData;
+                mothership?.getHitBy(shot);
+                return false;
+            }
+
+            return false;
         }
 
         void loadEmitterNode()

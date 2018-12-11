@@ -57,6 +57,13 @@ namespace CommandersWar.Game
             physicsBody.UserData = this;
         }
 
+
+
+        internal void getHitBy(Shot shot)
+        {
+
+        }
+
         internal void loadHealthBar(GameWorld gameWorld)
         {
 

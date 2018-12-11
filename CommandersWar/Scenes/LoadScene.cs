@@ -49,7 +49,7 @@ namespace Hydra.Scenes
 		{
             base.touchUp(touch);
 
-            presentScene(new MainMenuScene());
+            presentScene(new BattleScene());
 		}
 
         internal override void updateSize()

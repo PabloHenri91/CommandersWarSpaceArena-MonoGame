@@ -179,6 +179,68 @@ namespace CommandersWar.Game
 
             maxVelocitySquared = GameMath.spaceshipMaxVelocitySquared(speedAtribute);
             force = maxVelocitySquared / 24000.0f;
+
+            physicsBody.UserData = this;
+        }
+
+        internal void getHitBy(Shot shot)
+        {
+            if (shot.shooter == this || shot.damage <= 0)
+            {
+                return;
+            }
+
+            if (shot.shooter.team == team)
+            {
+                return;
+            }
+
+            Vector2 d = shot.position - position;
+
+            float rotationToShot = (float)(-Math.Atan2(d.X, d.Y) + Math.PI);
+            float totalRotationToShot = rotationToShot - zRotation;
+            while (totalRotationToShot < -Math.PI) totalRotationToShot += (float)Math.PI * 2.0f;
+            while (totalRotationToShot > Math.PI) totalRotationToShot -= (float)Math.PI * 2.0f;
+
+            float damageMultiplier = Math.Max(Math.Abs(totalRotationToShot), 1.0f);
+
+            if (element.weakness == shot.element.type)
+            {
+                damageMultiplier *= (float)Math.PI / 2.0f;
+            }
+
+            if (element.strength == shot.element.type)
+            {
+                damageMultiplier /= (float)Math.PI / 2.0f;
+            }
+
+            if (shot.shooter.team != team)
+            {
+                // TODO: getHitBySpaceships
+            }
+
+            shot.damage = (int)(shot.damage * damageMultiplier);
+
+            // TODO: damageEffect
+
+            if (health > 0 && health - shot.damage <=0)
+            {
+                canRespawn &= shot.damage <= maxHealth;
+                // TODO: die
+            }
+            else
+            {
+                health -= shot.damage;
+
+                if (targetNode is Mothership)
+                {
+                    setTarget(shot.shooter);
+                }
+            }
+
+            // TODO: updateHealthBar
+            shot.damage = 0;
+            shot.removeFromParent();
         }
 
         internal void loadSetDestinationEffect(GameWorld gameWorld)
@@ -475,11 +537,9 @@ namespace CommandersWar.Game
         {
             if (physicsBody != null)
             {
-                float dx = point.X - position.X;
-                float dy = point.Y - position.Y;
+                Vector2 d = point - position;
 
-                rotationToDestination = -(float)Math.Atan2(dx, dy) + (float)Math.PI;
-
+                rotationToDestination = -(float)Math.Atan2(d.X, d.Y) + (float)Math.PI;
 
                 if (Math.Abs(physicsBody.AngularVelocity) < maxAngularVelocity)
                 {
