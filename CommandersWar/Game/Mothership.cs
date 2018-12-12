@@ -62,6 +62,7 @@ namespace CommandersWar.Game
         internal void getHitBy(Shot shot)
         {
 
+            shot.removeFromParent();
         }
 
         internal void loadHealthBar(GameWorld gameWorld)

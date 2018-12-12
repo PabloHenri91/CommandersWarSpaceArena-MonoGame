@@ -81,7 +81,7 @@ namespace CommandersWar.Game
             physicsBody.LinearDamping = 0;
             physicsBody.AngularDamping = 0;
 
-            float speed = 10.0f;
+            float speed = 4.0f;
 
             physicsBody.LinearVelocity = new Vector2((float)(Math.Sin(zRotation) * speed), (float)(-Math.Cos(zRotation) * speed));
 
@@ -100,17 +100,17 @@ namespace CommandersWar.Game
         {
             Shot shot = (Shot)fixtureA.Body.UserData;
 
-            if (fixtureB.Body.UserData is Spaceship)
-            {
-                Spaceship spaceship = (Spaceship)fixtureB.Body.UserData;
-                spaceship?.getHitBy(shot);
-                return false;
-            }
-
             if (fixtureB.Body.UserData is Mothership)
             {
                 Mothership mothership = (Mothership)fixtureB.Body.UserData;
                 mothership?.getHitBy(shot);
+                return false;
+            }
+
+            if (fixtureB.Body.UserData is Spaceship)
+            {
+                Spaceship spaceship = (Spaceship)fixtureB.Body.UserData;
+                spaceship?.getHitBy(shot);
                 return false;
             }
 

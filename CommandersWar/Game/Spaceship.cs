@@ -226,7 +226,7 @@ namespace CommandersWar.Game
             if (health > 0 && health - shot.damage <=0)
             {
                 canRespawn &= shot.damage <= maxHealth;
-                // TODO: die
+                die(shot.shooter);
             }
             else
             {
@@ -238,9 +238,28 @@ namespace CommandersWar.Game
                 }
             }
 
-            // TODO: updateHealthBar
+            healthBar.update(health, maxHealth);
             shot.damage = 0;
             shot.removeFromParent();
+        }
+
+        private void die(Spaceship shooter)
+        {
+            emitterNodeParticleBirthRate = 0;
+
+
+
+            health = 0;
+
+            retreat();
+            resetToStartingPosition();
+
+            isHidden = true;
+
+            deaths += 1;
+            deathTime = SKScene.currentTime;
+
+            fadeSetDestinationEffect();
         }
 
         internal void loadSetDestinationEffect(GameWorld gameWorld)

@@ -71,5 +71,10 @@ namespace CommandersWar.Game
             labelHealth.position = new Vector2(0, 0.5f);
             addChild(labelHealth);
         }
+
+        internal void update(int health, int maxHealth)
+        {
+            labelHealth.text = health.ToString();
+        }
     }
 }
