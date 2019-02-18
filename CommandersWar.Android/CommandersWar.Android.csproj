@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\CommandersWar\CommandersWar.projitems" Label="Shared" Condition="Exists('..\CommandersWar\CommandersWar.projitems')" />
-  <Import Project="..\..\hydra\Hydra.projitems" Label="Shared" Condition="Exists('..\..\hydra\Hydra.projitems')" />
+  <Import Project="..\..\Hydra-MonoGame\Hydra.projitems" Label="Shared" Condition="Exists('..\..\Hydra-MonoGame\Hydra.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
