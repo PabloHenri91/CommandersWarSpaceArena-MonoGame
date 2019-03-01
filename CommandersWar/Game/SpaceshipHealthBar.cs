@@ -20,7 +20,7 @@ namespace CommandersWar.Game
 
         SKSpriteNode fill;
 
-        Label labelLevel;
+        internal Label labelLevel;
         Label labelHealth;
 
         public SpaceshipHealthBar(int level, int health, Mothership.Team team, Spaceship.Rarity rarity) : base("spaceshipHealthBarBackground")

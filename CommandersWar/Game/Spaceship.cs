@@ -55,7 +55,7 @@ namespace CommandersWar.Game
         internal SKNode targetNode;
 
         internal bool retreating;
-        internal bool canRespawn;
+        internal bool canRespawn = true;
 
         SKShapeNode weaponRangeShapeNode;
         SKSpriteNode destinationEffectSpriteNode;
@@ -74,6 +74,11 @@ namespace CommandersWar.Game
 
         float lastShot;
         internal bool canShoot = true;
+        internal List<Spaceship> getHitBySpaceships = new List<Spaceship>();
+        private float lastHeal;
+
+        private int kills;
+        private int assists;
 
         public Spaceship(SpaceshipData spaceshipData, bool loadPhysics = false, Mothership.Team team = Mothership.Team.green) : base("")
         {
@@ -247,7 +252,19 @@ namespace CommandersWar.Game
         {
             emitterNodeParticleBirthRate = 0;
 
+            if (shooter != null)
+            {
+                shooter.kills += 1;
+                shooter.healthBar.labelLevel.color = GameColors.controlYellow;
+                getHitBySpaceships.Remove(shooter);
+            }
 
+            foreach (var spaceship in getHitBySpaceships)
+            {
+                spaceship.assists += 1;
+            }
+
+            getHitBySpaceships.Clear();
 
             health = 0;
 
@@ -258,6 +275,12 @@ namespace CommandersWar.Game
 
             deaths += 1;
             deathTime = SKScene.currentTime;
+            lastSecond = SKScene.currentTime;
+
+            if (canRespawn)
+            {
+                labelRespawn.text = $"{deaths * (rarity.GetHashCode() + 1)}";
+            }
 
             fadeSetDestinationEffect();
         }
@@ -332,7 +355,10 @@ namespace CommandersWar.Game
 
         internal void loadLabelRespawn(SKNode gameWorld)
         {
-
+            labelRespawn = new Label("null");
+            SKScene.current.labelList.Remove(labelRespawn);
+            labelRespawn.position = startingPosition;
+            gameWorld.addChild(labelRespawn);
         }
 
         internal void loadHealthBar()
@@ -366,10 +392,6 @@ namespace CommandersWar.Game
                         if (destination.Value == startingPosition)
                         {
                             resetToStartingPosition();
-                        }
-                        else
-                        {
-                            updateBitMasks();
                         }
                         destination = null;
                         fadeSetDestinationEffect();
@@ -492,9 +514,8 @@ namespace CommandersWar.Game
                         {
                             if (labelRespawn != null)
                             {
-                                Label label = labelRespawn;
                                 int text = (deaths * (rarity.GetHashCode() + 1)) - (int)(SKScene.currentTime - deathTime);
-                                label.text = $"{text}";
+                                labelRespawn.text = $"{text}";
                             }
                         }
                     }
@@ -514,7 +535,10 @@ namespace CommandersWar.Game
 
         void respawn()
         {
-
+            isHidden = false;
+            health = 1;
+            healthBar.update(health, maxHealth);
+            labelRespawn.text = "";
         }
 
         bool isMothershipInRange(Mothership enemyMothership)
@@ -535,10 +559,40 @@ namespace CommandersWar.Game
 
         void heal()
         {
-
+            if (level < battleStartLevel + kills)
+            {
+                upgradeOnBattle();
+            }
+            if (health < maxHealth)
+            {
+                lastHeal = SKScene.currentTime;
+                health += Math.Max(maxHealth / 180, 1);
+                if (health > maxHealth)
+                {
+                    health = maxHealth;
+                }
+                if (health == maxHealth)
+                {
+                    getHitBySpaceships.Clear();
+                }
+                healthBar.update(health, maxHealth);
+            }
+            else
+            {
+                if (SKScene.currentTime - lastHeal > 3.0f && !retreating)
+                {
+                    physicsBody.BodyType = BodyType.Dynamic;
+                }
+            }
         }
 
-        void updateBitMasks()
+        private void upgradeOnBattle()
+        {
+            setBattleLevel(level + 1);
+            healthBar.labelLevel.color = GameColors.fontBlack;
+        }
+
+        private void setBattleLevel(int level)
         {
 
         }

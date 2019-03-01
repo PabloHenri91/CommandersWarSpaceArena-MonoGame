@@ -111,14 +111,14 @@ namespace CommandersWar.Game
             spaceship.zRotation = zRotation;
             gameWorld.addChild(spaceship);
 
+            spaceship.startingPosition = spaceship.position;
+            spaceship.startingZRotation = spaceship.zRotation;
+
             spaceship.loadWeaponRangeShapeNode(gameWorld);
             spaceship.loadHealthBar();
             spaceship.loadLabelRespawn(gameWorld);
             spaceship.loadJetEffect(gameWorld);
             spaceship.loadSetDestinationEffect(gameWorld);
-
-            spaceship.startingPosition = spaceship.position;
-            spaceship.startingZRotation = spaceship.zRotation;
         }
 
         internal void updateMaxHealth(List<Spaceship> spaceships)
