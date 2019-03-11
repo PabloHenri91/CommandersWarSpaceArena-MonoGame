@@ -355,7 +355,7 @@ namespace CommandersWar.Game
 
         internal void loadLabelRespawn(SKNode gameWorld)
         {
-            labelRespawn = new Label("null");
+            labelRespawn = new Label("");
             SKScene.current.labelList.Remove(labelRespawn);
             labelRespawn.position = startingPosition;
             gameWorld.addChild(labelRespawn);
@@ -465,7 +465,7 @@ namespace CommandersWar.Game
                                         var point = new Vector2(position.X, targetMothership.position.Y);
                                         rotateTo(point);
 
-                                        if (position.distanceTo(point) > weaponRange + 89 / 2)
+                                        if (position.distanceTo(point) > weaponRange + Mothership.height / 2.0f)
                                         {
                                             applyForce();
                                         }
@@ -530,7 +530,38 @@ namespace CommandersWar.Game
 
         Spaceship nearestSpaceshipInRange(IEnumerable<Spaceship> enemySpaceships)
         {
-            return null;
+            Spaceship nearestSpaceship = null;
+
+            foreach (var spaceship in enemySpaceships)
+            {
+                if (spaceship == this)
+                {
+                    continue;
+                }
+
+                if (spaceship.health > 0)
+                {
+                    if ((spaceship.position - spaceship.startingPosition).LengthSquared() > 4.0f)
+                    {
+                        if (position.distanceTo(spaceship.position) < weaponRange + radius)
+                        {
+                            if (nearestSpaceship != null)
+                            {
+                                if ((position - spaceship.position).LengthSquared() < (position - nearestSpaceship.position).LengthSquared())
+                                {
+                                    nearestSpaceship = spaceship;
+                                }
+                            }
+                            else
+                            {
+                                nearestSpaceship = spaceship;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return nearestSpaceship;
         }
 
         void respawn()
@@ -541,9 +572,10 @@ namespace CommandersWar.Game
             labelRespawn.text = "";
         }
 
-        bool isMothershipInRange(Mothership enemyMothership)
+        bool isMothershipInRange(Mothership mothership)
         {
-            return false;
+            Vector2 point = new Vector2(position.X, mothership.position.Y);
+            return position.distanceTo(point) < weaponRange + Mothership.height / 2.0f;
         }
 
         void tryToShoot()

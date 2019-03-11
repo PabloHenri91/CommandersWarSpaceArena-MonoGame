@@ -22,7 +22,7 @@ namespace CommandersWar.Game
                                HorizontalAlignment horizontalAlignment = HorizontalAlignment.left,
                                VerticalAlignment verticalAlignment = VerticalAlignment.top) : base("", x, y, horizontalAlignment, verticalAlignment)
         {
-            size = new Vector2(375, 89);
+            size = new Vector2(375.0f, Mothership.height);
             mothershipSlots.Add(new MothershipSlot(0, 0));
             mothershipSlots.Add(new MothershipSlot(95, 0));
             mothershipSlots.Add(new MothershipSlot(191, 0));

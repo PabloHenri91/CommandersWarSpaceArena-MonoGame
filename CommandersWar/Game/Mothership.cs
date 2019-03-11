@@ -179,6 +179,9 @@ namespace CommandersWar.Game
             green,
             blue
         }
+
+        internal static float height = 89.0f;
+
         internal static Color colorFor(Team team) {
             switch (team)
             {
