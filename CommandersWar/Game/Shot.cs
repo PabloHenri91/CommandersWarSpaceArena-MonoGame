@@ -120,18 +120,20 @@ namespace CommandersWar.Game
         void loadEmitterNode()
         {
             emitterNode = new SKEmitterNode(60);
-            emitterNode.texture2D = texture2D;
+            emitterNode.texture2D = SKScene.current.Texture2D("spark8x8");
             //emitterNode.particleSize = new Vector2(8, 8);
-            emitterNode.particleBirthRate = 60;
-            emitterNode.particleLifetime = 1;
-            emitterNode.particleAlpha = 1;
-            emitterNode.particleAlphaSpeed = -4;
-            emitterNode.particleScaleSpeed = -1;
-            emitterNode.particleColorBlendFactor = 1;
+            emitterNode.particleBirthRate = 60.0f;
+            emitterNode.particleLifetime = 1.0f;
+            emitterNode.particleAlpha = 1.0f;
+            emitterNode.particleAlphaSpeed = -4.0f;
+            emitterNode.particleScale = 1.0f;
+            emitterNode.particleScaleSpeed = -1.0f;
+            emitterNode.particleColorBlendFactor = 1.0f;
             emitterNode.particleColor = color;
+
             emitterNode.particleBlendMode = BlendState.Additive;
 
-            emitterNode.particlePositionRange = new Vector2(8, 8);
+            emitterNode.particlePositionRange = new Vector2(8.0f, 8.0f);
 
             shooter.parent.addChild(emitterNode);
 
@@ -149,6 +151,12 @@ namespace CommandersWar.Game
 
             list.Remove(this);
             shooter.canShoot = true;
+
+            emitterNode.particleBirthRate = 0;
+            emitterNode.run(SKAction.sequence(new[] { // TODO: SKAction.removeFromParentAfterDelay(1.0f)
+                SKAction.waitForDuration(1.0f),
+                SKAction.removeFromParent()
+            }));
         }
 
         void explosionEffect()
