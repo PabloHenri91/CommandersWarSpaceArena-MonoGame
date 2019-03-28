@@ -43,9 +43,7 @@ namespace CommandersWar.Game
 
             fill = new SKSpriteNode("");
             fill.color = rarityColor;
-            fill.size = size;
-            float fillSizeWidth = fill.size.X - 4.0f;
-            fill.size = new Vector2(fillSizeWidth, fill.size.Y - 4.0f);
+            fill.size = new Vector2(size.X - 4.0f, size.Y - 4.0f);
             fill.position = new Vector2(-25.5f, 0);
             fill.anchorPoint = new Vector2(0.0f, 0.5f);
             addChild(fill);
@@ -74,7 +72,16 @@ namespace CommandersWar.Game
 
         internal void update(int health, int maxHealth)
         {
-            labelHealth.text = health.ToString();
+            if (health > 0)
+            {
+                isHidden = false;
+                labelHealth.text = health.ToString();
+                fill.size = new Vector2(size.X * ((float)health / (float)maxHealth) - 4.0f, fill.size.Y);
+            }
+            else
+            {
+                isHidden = true;
+            }
         }
     }
 }
