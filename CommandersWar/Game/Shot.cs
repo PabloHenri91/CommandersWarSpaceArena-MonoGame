@@ -153,10 +153,7 @@ namespace CommandersWar.Game
             shooter.canShoot = true;
 
             emitterNode.particleBirthRate = 0;
-            emitterNode.run(SKAction.sequence(new[] { // TODO: SKAction.removeFromParentAfterDelay(1.0f)
-                SKAction.waitForDuration(1.0f),
-                SKAction.removeFromParent()
-            }));
+            emitterNode.run(SKAction.removeFromParentAfterDelay(1.0f));
         }
 
         void explosionEffect()
