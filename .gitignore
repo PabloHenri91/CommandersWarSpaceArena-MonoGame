@@ -513,3 +513,4 @@ xcuserdata/
 
 
 # End of https://www.gitignore.io/api/macos,csharp,windows,visualstudio,xcode
+RealmWeaver.Fody.dll
